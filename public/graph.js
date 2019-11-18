@@ -16,11 +16,11 @@ const data = [
    
   ];
  
- staticdata.forEach(functon(element){
-    if(candidate_id.value === 'P00009621') {
-    candidate.name = 'Elizabeth Warren'
-    } 
-});
+//  staticdata.forEach(functon(element){
+//     if(candidate_id.value === 'P00009621') {
+//     candidate.name = 'Elizabeth Warren'
+//     } 
+// });
   
   // create a chart and set the data
   const chart = anychart.sankey(data);
