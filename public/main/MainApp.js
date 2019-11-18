@@ -1,9 +1,9 @@
 import Component from '../Component.js';
-import CandidateList from './CandidateList.js';
+// import CandidateList from './CandidateList.js';
 import Header from '../common/Header.js';
-import Footer from '../common/Footer.js';
-import { getCandidates } from '../services/candidate-api.js';
-import Loading from '../common';
+// import Footer from '../common/Footer.js';
+// import { getCandidates } from '../services/candidate-api.js';
+// import Loading from '../common';
 
 class MainApp extends Component {
     async onRender(dom) {
