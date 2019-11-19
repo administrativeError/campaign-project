@@ -1,4 +1,12 @@
-// import staticdata from '/staticdata.js';
+import staticdata from '/staticdata.js';
+
+
+staticdata.forEach(function(element) {
+    if(candidate_id.value === 'P00009621') {
+    candidate.name = 'Elizabeth Warren'
+    } 
+});
+console.log(staticdata);
 
 const data = [
     {from: "> $2000",  to: "Wernie Wanders",  weight:  2230000},
@@ -16,11 +24,7 @@ const data = [
    
   ];
  
-//  staticdata.forEach(functon(element){
-//     if(candidate_id.value === 'P00009621') {
-//     candidate.name = 'Elizabeth Warren'
-//     } 
-// });
+
   
   // create a chart and set the data
   const chart = anychart.sankey(data);
