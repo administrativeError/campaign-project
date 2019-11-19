@@ -8,7 +8,7 @@ if (json) {
     const user = JSON.parse(json);
     token = user.token;
 }
-// redirect if not on home page
+
 if (!token && location.pathname !== '/index.html') {
     const searchParams = new URLSearchParams();
     searchParams.set('redirect', location.pathname);

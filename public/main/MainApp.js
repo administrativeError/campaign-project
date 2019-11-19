@@ -40,9 +40,9 @@ class MainApp extends Component {
     renderHTML() {
         return /*html*/`
         <div>
-        <main>
+            <main>
         
-        </main>
+            </main>
         </div>
         `;
     }
