@@ -1,4 +1,4 @@
-import staticdata from '/staticdata.js';
+// import staticdata from '/staticdata.js';
 
 const data = [
     {from: "> $2000",  to: "Wernie Wanders",  weight:  2230000},
