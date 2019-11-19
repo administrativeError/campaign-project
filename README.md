@@ -1,10 +1,26 @@
-# campaign-project
-The name of the project
-Names of the team members
-A description of the project
-The overall problem domain and how the project solves those problems
-Semantic versioning, beginning with version 1.0.0 and incremented as changes are made
-A list of any libraries, frameworks, or packages that your application requires in order to properly function
-Instructions that the user may need to follow in order to get your application up and running on their own computer
-Clearly defined API endpoints with sample responses
-Clearly defined database schemas
+# Administrative Error
+
+### A Project By: **Sam Sterns, Matt Munch, Joseph Tatum, Alan Hermmans, Aaron Mullan**
+
+
+## What is Administrative Error?
+
+Administrative Error is a campaign contribution visualization tool to help users more easily visualize where political campiagn contibutions are coming from.
+
+## Versioning
+
+ - 2019-11-22: 1.0.0
+     - Initial Release featuring 2020 presidential candidates.
+
+## Libraries & Frameworks
+
+N/A
+
+## API Endpoints
+
+Coming Soon
+
+## Database Schemas
+
+Coming Soon
+

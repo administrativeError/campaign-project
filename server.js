@@ -18,7 +18,7 @@ const authRoutes = createAuthRoutes({
             FROM users
             WHERE email = $1;
         `,
-            [email]
+        [email]
         ).then(result => result.rows[0]);
     },
     insertUser(user, hash) {
