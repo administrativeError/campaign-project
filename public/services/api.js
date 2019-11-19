@@ -47,6 +47,17 @@ export function getCandidateCashData() {
     return fetchWithError(candidateCashURL);
 }
 
+export function addAFavorite(favorite){
+    const url = `${BASE_URL}/favs/`;
+    return fetchWithError(url, {
+        method : 'POST',
+        headers :{
+            'Content-Type' : 'application/json',
+        },
+        body : JSON.stringify(favorite)
+    });
+}
+
 export function signUp(user) {
     const url = `${BASE_URL}/auth/signup`;
     return fetchWithError(url, {
