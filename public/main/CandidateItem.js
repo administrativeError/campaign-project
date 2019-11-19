@@ -16,11 +16,9 @@ class CandidateItem extends Component {
         };
         //const id = candidate.candidate_id;
         return /*html*/`
-        <div>
-            <li>
-                <h2>${sanitizeName(name)}</h2>
-            </li>
-        </div>
+        <li>
+            <h2>${sanitizeName(name)}</h2>
+        </li>
         `;
     }
 }
