@@ -1,6 +1,5 @@
+
 const BASE_URL = '/api';
-const candidateNamesURL = 'https://api.open.fec.gov/v1/elections/?sort_null_only=true&page=1&election_full=true&sort_nulls_last=true&sort=-total_receipts&cycle=2020&sort_hide_null=true&office=president&api_key=zOLscs4pSBuWuW1Um5FSdzojowh8cDemamFwaWYe&per_page=20';
-const candidateCashURL = 'https://api.open.fec.gov/v1/schedules/schedule_a/by_size/by_candidate/?per_page=40&sort_hide_null=false&sort=size&sort_nulls_last=false&election_full=true&page=1&candidate_id=P80001571&candidate_id=P60007168&candidate_id=P00009621&candidate_id=P00010298&candidate_id=P80000722&candidate_id=P00012716&cycle=2020&api_key=7LKTy3yhFpkqLFdWu53uNRbbKghO2S2aokyPUX0o&sort_null_only=false';
 
 let token = '';
 const json = localStorage.getItem('USER');
@@ -32,19 +31,13 @@ async function fetchWithError(url, options) {
         throw data.error;
     }
 }
-
-export async function getTopTwentyCandidates() {
-    const response = await fetch(candidateNamesURL);
-    const data = await response.json();
-    let topSixArray = [];
-    for (let i = 0; i < 20; i++) {
-        topSixArray.push(data['results'][i]);
-    }
-    return topSixArray;
+export function getCandidates() {
+    const url = `${BASE_URL}/candidates`;
+    return fetchWithError(url);
 }
-
 export function getCandidateCashData() {
-    return fetchWithError(candidateCashURL);
+    const url = `${BASE_URL}/candidate-cash`;
+    return fetchWithError(url);
 }
 
 export function signUp(user) {
