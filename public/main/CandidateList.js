@@ -1,5 +1,5 @@
 import Component from '../Component.js';
-import CandidateItem from './CandidateItem.js/index.js';
+import CandidateItem from './CandidateItem.js';
 
 class CandidateList extends Component {
 
