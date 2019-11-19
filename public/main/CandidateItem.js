@@ -2,13 +2,10 @@ import Component from '../Component.js';
 
 class CandidateItem extends Component {
 
-    onRender() {
-        const candidate = this.props;
-    }
-
     renderHTML() {
         const candidate = this.props;
-        const { 'id' : candidate_id , 'name' : candidate_name } = candidate;
+        const name = candidate.candidate_name;
+        //const id = candidate.candidate_id;
         return /*html*/`
         <div>
             <li>

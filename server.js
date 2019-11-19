@@ -14,21 +14,20 @@ const createAuthRoutes = require('./lib/auth/create-auth-routes');
 const authRoutes = createAuthRoutes({
     selectUser(email) {
         return client.query(`
-        SELECT id, email, hash, display_name as "displayName" 
-        FROM users
-        WHERE email = $1;
+            SELECT *
+            FROM users
+            WHERE email = $1;
         `,
-        [email]
+            [email]
         ).then(result => result.rows[0]);
     },
     insertUser(user, hash) {
-        console.log(user);
         return client.query(`
-        INSERT into users (email, hash, display_name)
+        INSERT into users (email, display_name, hash)
         VALUES ($1, $2, $3)
         RETURNING id, email, display_name as "displayName";
         `,
-        [user.email, hash, user.displayName]
+        [user.email, user.displayName, hash]
         ).then(result => result.rows[0]);
     }
 });
