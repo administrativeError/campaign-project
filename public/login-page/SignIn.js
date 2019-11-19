@@ -1,4 +1,5 @@
 import Component from '../Component.js';
+import MainApp from '../main/MainApp.js';
 
 class SignIn extends Component {
 
@@ -17,8 +18,6 @@ class SignIn extends Component {
             };
 
             onSignIn(user);
-
-            window.location('/main/main.html');
         });
     }
 

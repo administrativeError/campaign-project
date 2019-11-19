@@ -29,6 +29,7 @@ class AuthApp extends Component {
                 try {
                     const user = await userSignUp(newUser);
                     success(user);
+                    window.location = `main/main.html`;
                 }
                 catch (err) {
                     errors.textContent = err;
@@ -46,6 +47,7 @@ class AuthApp extends Component {
                 try {
                     const user = await userSignIn(credentials);
                     success(user);
+                    window.location = `main/main.html`;
                 }
                 catch (err) {
                     errors.textContent = err;
