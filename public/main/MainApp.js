@@ -1,9 +1,9 @@
 import Component from '../Component.js';
-// import CandidateList from './CandidateList.js';
+import CandidateList from './CandidateList.js';
 import Header from '../common/Header.js';
 // import Footer from '../common/Footer.js';
 import { getTopSixCandidates } from '../services/api.js';
-// import Loading from '../common';
+import Loading from '../common/Loading.js';
 
 class MainApp extends Component {
     async onRender(dom) {
@@ -13,8 +13,8 @@ class MainApp extends Component {
         const loading = new Loading();
         dom.appendChild(loading.renderDOM());
 
-        const footer = new Footer();
-        dom.appendChild(footer.renderDOM());
+        // const footer = new Footer();
+        // dom.appendChild(footer.renderDOM());
 
         const main = dom.querySelector('main');
         const candidateList = new CandidateList({ candidates: [] });

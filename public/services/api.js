@@ -45,8 +45,7 @@ async function fetchWithError(url, options) {
 }
 
 export function getData() {
-    const response = await fetch(URL);
-        return fetchWithError(url);
+    return fetchWithError(URL);
 }
 
 export function signUp(user) {
