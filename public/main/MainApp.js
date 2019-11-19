@@ -17,7 +17,8 @@ class MainApp extends Component {
         // dom.appendChild(footer.renderDOM());
 
         const main = dom.querySelector('main');
-        const candidateList = new CandidateList({ candidates: [] });
+        const candidateList = new CandidateList({ candidates: [], favList : [] });
+        
         main.appendChild(candidateList.renderDOM());
 
         try {

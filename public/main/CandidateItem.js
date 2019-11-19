@@ -1,6 +1,23 @@
 import Component from '../Component.js';
+import { addAFavorite } from '../services/api.js';
 
 class CandidateItem extends Component {
+    
+    onRender(li) {
+        //const favList = this.props.favList;
+        const header2 = li.querySelector('h2');
+        header2.addEventListener('click', (event) => {
+
+            const candidate = {
+                candidate_id: event.target.id
+            };
+
+
+            addAFavorite(candidate);
+            //favList.push(event.target.id);
+        });
+    }
+
     renderHTML() {
         
         const candidate = this.props;

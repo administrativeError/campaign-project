@@ -23,6 +23,7 @@ async function fetchWithError(url, options) {
     }
 
     const response = await fetch(url, options);
+    console.log(response);
     const data = await response.json();
 
     if (response.ok) {
@@ -45,6 +46,18 @@ export async function getTopTwentyCandidates() {
 
 export function getCandidateCashData() {
     return fetchWithError(candidateCashURL);
+}
+
+export function addAFavorite(favorite){
+    debugger;
+    const url = `${BASE_URL}/favs/`;
+    return fetchWithError(url, {
+        method : 'POST',
+        headers :{
+            'Content-Type' : 'application/json',
+        },
+        body : JSON.stringify(favorite)
+    });
 }
 
 export function signUp(user) {
