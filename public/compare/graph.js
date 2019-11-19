@@ -1,8 +1,11 @@
 import staticdata from './staticdata.js';
+import { getCandidateCashData } from '../services/api.js';
+const realdata = getCandidateCashData();
+console.log(realdata);
 
 const mungedDataArray = [];
-staticdata.results.forEach(result => {
-  result.from = result.size;
+realdata.results.forEach(result => {
+  result.from = '> $' + result.size;
   result.to = result.candidate_id;
   result.weight = result.total;
   mungedDataArray.push(result);
@@ -19,5 +22,9 @@ console.log(mungedDataArray);
   chart.container("chart");
   // chart.setSize('100%', '100%');
   
+  const title = chart.title();
+  title.text('Candidate Donations by Dollar Amount');
+  title.enabled(true);
+
   // initiate drawing the chart
   chart.draw();
