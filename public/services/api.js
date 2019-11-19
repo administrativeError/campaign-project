@@ -23,6 +23,7 @@ async function fetchWithError(url, options) {
     }
 
     const response = await fetch(url, options);
+    console.log(response);
     const data = await response.json();
 
     if (response.ok) {
@@ -48,6 +49,7 @@ export function getCandidateCashData() {
 }
 
 export function addAFavorite(favorite){
+    debugger;
     const url = `${BASE_URL}/favs/`;
     return fetchWithError(url, {
         method : 'POST',
