@@ -1,12 +1,12 @@
 User Stories
 
-As a busy college student who is interested in political science, I want information on campaign finances so I can make more informed decisions.
+Jared: As a busy college student who is interested in political science, I want information on campaign finances so I can make more informed decisions.
 
-As a volunteer for a political campaign, I want quick access to financial information on candidates so I can more effectively advocate for my candidate.
+Ali: As a volunteer for a political campaign, I want quick access to financial information on candidates so I can more effectively advocate for my candidate.
 
-As a boomer, I want an app with some easily digestible information I can continue to look at all morning and then relay it to my brother.
+John: As a boomer, I want an app with some easily digestible information I can continue to look at all morning and then relay it to my brother.
 
-As a person attending Thanksgiving, I want to reinforce my beliefs through technology to steel myself against the coming onslaught.
+Min: As a person attending Thanksgiving, I want to reinforce my beliefs through technology to steel myself against the coming onslaught.
 Wireframes TK
 
 Conflict Plan:  Minimize Stanford kit to decrease chance of intercollegiate brawling. Make use of daily check-ins with TA’s as a venting process. Keep lines of communication open.  If we feel a member is not contributing, we will ask them how we can help them.
