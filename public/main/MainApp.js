@@ -2,7 +2,7 @@ import Component from '../Component.js';
 // import CandidateList from './CandidateList.js';
 import Header from '../common/Header.js';
 // import Footer from '../common/Footer.js';
-// import { getCandidates } from '../services/candidate-api.js';
+import { getTopSixCandidates } from '../services/api.js';
 // import Loading from '../common';
 
 class MainApp extends Component {
@@ -21,7 +21,7 @@ class MainApp extends Component {
         main.appendChild(candidateList.renderDOM());
 
         try {
-            const candidates = await getCandidates();
+            const candidates = await getTopSixCandidates();
             candidateList.update({ candidates });
         }
         catch (err) {
