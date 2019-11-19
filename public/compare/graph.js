@@ -3,6 +3,7 @@ import { getCandidateCashData } from '../services/api.js';
 const realdata = getCandidateCashData();
 console.log(realdata);
 
+console.log(getCandidates());
 const mungedDataArray = [];
 realdata.results.forEach(result => {
   result.from = '> $' + result.size;
@@ -13,13 +14,13 @@ realdata.results.forEach(result => {
 console.log(mungedDataArray);
   
   // create a chart and set the data
-  const chart = anychart.sankey(mungedDataArray);
+const chart = anychart.sankey(mungedDataArray);
   
   // set the width of nodes
-  chart.nodeWidth("30%");
+chart.nodeWidth('30%');
   
   // set the container id
-  chart.container("chart");
+chart.container('chart');
   // chart.setSize('100%', '100%');
   
   const title = chart.title();
@@ -27,4 +28,4 @@ console.log(mungedDataArray);
   title.enabled(true);
 
   // initiate drawing the chart
-  chart.draw();
+chart.draw();
