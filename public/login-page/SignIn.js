@@ -1,9 +1,9 @@
 import Component from '../Component.js';
 
-class SignUp extends Component {
+class SignIn extends Component {
 
     onRender(form) {
-        const onSignUp = this.props.onSignUp;
+        const onSignIn = this.props.onSignIn;
 
         form.addEventListener('submit', event => {
             event.preventDefault();
@@ -16,7 +16,7 @@ class SignUp extends Component {
                 password: formData.get('password')
             };
 
-            onSignUp(user);
+            onSignIn(user);
         });
     }
 
@@ -24,7 +24,7 @@ class SignUp extends Component {
         return /*html*/`
             <form class="auth-form standard">
                 <p>
-                    <label for="name">User Name</label>
+                    <label for="name">Name</label>
                     <input id="name" name="name" required placeholder="Your Name">
                 </p>
                     
@@ -39,7 +39,7 @@ class SignUp extends Component {
                 </p>
 
                 <p>
-                    <button>Sign Up</button>
+                    <button>Sign In</button>
                 </p>
 
             </form>
@@ -47,4 +47,4 @@ class SignUp extends Component {
     }
 }
 
-export default SignUp;
+export default SignIn;
