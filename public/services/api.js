@@ -48,10 +48,13 @@ export function getCandidateCashData() {
 }
 
 export function addAFavorite(favorite){
+    const USER = localStorage.getItem('USER');
+    const userId = USER['id'];
     const url = `${BASE_URL}/favs/`;
     return fetchWithError(url, {
         method : 'POST',
         headers :{
+            'userId' : userId,
             'Content-Type' : 'application/json',
         },
         body : JSON.stringify(favorite)

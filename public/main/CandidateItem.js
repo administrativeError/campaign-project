@@ -7,7 +7,7 @@ class CandidateItem extends Component {
         //const favList = this.props.favList;
         const header2 = li.querySelector('h2');
         header2.addEventListener('click', (event) => {
-            addAFavorite(event.target.id);
+            addAFavorite((event.target.id));
             //favList.push(event.target.id);
         });
     }
