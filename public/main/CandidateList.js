@@ -5,7 +5,7 @@ class CandidateList extends Component {
 
     onRender(ul) {
         const candidates = this.props.candidates;
-        candidates.forEach(candidate => {
+        candidates.results.forEach(candidate => {
             const candidateItem = new CandidateItem(candidate);
             ul.appendChild(candidateItem.renderDOM());
         });
