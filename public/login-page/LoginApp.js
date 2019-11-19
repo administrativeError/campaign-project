@@ -17,9 +17,11 @@ class AuthApp extends Component {
         dom.prepend(header.renderDOM());
 
         const errors = dom.querySelector('.errors');
+        const signInButton = dom.querySelector('.signin-button');
+        const signUpButton = dom.querySelector('.signup-button');
         const signUpContainer = dom.querySelector('#signup-container');
         const signInContainer = dom.querySelector('#signin-container');
-        
+
         const signUp = new SignUp({
             onSignUp: async newUser => {
                 errors.textContent = '';
@@ -34,6 +36,7 @@ class AuthApp extends Component {
                 }
             }
         });
+
         signUpContainer.appendChild(signUp.renderDOM());
         
         const signIn = new SignIn({
@@ -52,19 +55,16 @@ class AuthApp extends Component {
         });
         signInContainer.appendChild(signIn.renderDOM());
 
-        const switchToSignIn = dom.querySelector('#signin-button');
-        switchToSignIn.addEventListener('click', () => {
-            signInContainer.classList.remove('no-display');
-            signUpContainer.classList.add('no-display');
+        signInButton.addEventListener('click', () => {
+            signInContainer.style.display = 'block';
+            signUpContainer.style.display = 'none';
+        });
+
+        signUpButton.addEventListener('click', () => {
+            signUpContainer.style.display = 'block';
+            signInContainer.style.display = 'none';
         });
         
-        const switchToSignUp = dom.querySelector('#signup-button');
-        switchToSignUp.addEventListener('click', () => {
-            signUpContainer.classList.remove('no-display');
-            signInContainer.classList.add('no-display');
-        });
-
-
     }
 
     renderHTML() {
@@ -73,15 +73,13 @@ class AuthApp extends Component {
                 <!-- header goes here -->
                 <main>
                     <p class="errors"></p>
-                    <section class="no-display" id="signup-container">
-                        <p class="switch">
-                            <button id="signin-button">Log In</button>
-                        </p>
-                    </section>
-                    <section id="signin-container">
-                        <p class="switch">
-                            <button id="signup-button">Sign Up</button>
-                        </p>
+                    <section class='home-container'>
+                        <button class="signin-button">Sign In</button>
+                        <button class="signup-button">Sign Up</button>
+                        <div style="display:none;" id="signup-container">
+                        </div>
+                        <div style="display:none;" id="signin-container">
+                        </div>
                     </section>
                 </main>
             </div>
