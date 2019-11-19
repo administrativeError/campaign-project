@@ -18,7 +18,7 @@ class SignIn extends Component {
 
             onSignIn(user);
 
-            window.location = '/main/main.html';
+            window.location('/main/main.html');
         });
     }
 
