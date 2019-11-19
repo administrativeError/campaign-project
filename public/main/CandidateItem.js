@@ -1,19 +1,18 @@
 import Component from '../Component.js';
 
 class CandidateItem extends Component {
-
-    onRender() {
-        const candidate = this.props;
-        candidate = 
-    }
-
     renderHTML() {
+        
+        const candidate = this.props;
+        const name = candidate.candidate_name;
+       
+        //const id = candidate.candidate_id;
         return /*html*/`
-        <div>
-            <li>
-
-            </li>
-        </div>
+        <li>
+            <h2>${name}</h2>
+        </li>
         `;
     }
 }
+
+export default CandidateItem;

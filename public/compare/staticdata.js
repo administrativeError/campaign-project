@@ -1,4 +1,4 @@
-export const staticdata = {
+const staticdata = {
     "api_version": "1.0",
     "results": [
         {
@@ -219,3 +219,4 @@ export const staticdata = {
         "page": 1
     }
 }
+export default staticdata;
