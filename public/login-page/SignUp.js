@@ -17,6 +17,7 @@ class SignUp extends Component {
             };
 
             onSignUp(user);
+            
         });
     }
 
