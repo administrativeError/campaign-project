@@ -23,7 +23,6 @@ async function fetchWithError(url, options) {
     }
 
     const response = await fetch(url, options);
-    console.log(response);
     const data = await response.json();
 
     if (response.ok) {
@@ -49,10 +48,25 @@ export function getCandidateCashData() {
 }
 
 export function addAFavorite(favorite){
-    debugger;
-    const url = `${BASE_URL}/favs/`;
+    const url = `${BASE_URL}/favorites/`;
     return fetchWithError(url, {
         method : 'POST',
+        headers :{
+            'Content-Type' : 'application/json',
+        },
+        body : JSON.stringify(favorite)
+    });
+}
+
+export function getFavorites(){
+    const url = `${BASE_URL}/favorites/`;
+    return fetchWithError(url);
+}
+
+export function deleteAFavorite(favorite){
+    const url = `${BASE_URL}/favorites/`;
+    return fetchWithError(url, {
+        method : 'DELETE',
         headers :{
             'Content-Type' : 'application/json',
         },
