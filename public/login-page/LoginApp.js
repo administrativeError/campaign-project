@@ -20,6 +20,18 @@ class AuthApp extends Component {
         const signUpContainer = dom.querySelector('#signup-container');
         const signInContainer = dom.querySelector('#signin-container');
         const main = dom.querySelector('.main-child-container');
+        const notMember = dom.querySelector('.not-member');
+
+        signInButton.addEventListener('click', () => {
+                signInButton.style.display = 'none';
+                signUpButton.style.display = 'none';
+                notMember.style.display = 'none';
+        });
+        signUpButton.addEventListener('click', () => {
+            signUpButton.style.display = 'none';
+            signInButton.style.display = 'none';
+            notMember.style.display = 'none';
+    });
         
         const header = new Header();
         main.prepend(header.renderDOM());
