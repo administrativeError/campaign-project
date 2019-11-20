@@ -9,18 +9,8 @@ export class GraphApp extends Component {
     async onRender(dom) {
         loadGraph();
         const header = new Header();
-<<<<<<< HEAD
-
         const headerDOM = header.renderDOM();
         dom.prepend(headerDOM);
-        const graphSection = dom.querySelector('.graph');
-        
-        await loadGraph();
-
-=======
-        const headerDOM = header.renderDOM();
-        dom.prepend(headerDOM);
->>>>>>> 656a1f6cc55f38375e5a826e8dd3166dc1a833ab
         const favoritesIds = await getFavorites();
         const favoritesIdsObject = favoritesIds.reduce((acc, curr) => {
             acc[curr.candidate_id] = curr.candidate_id; 

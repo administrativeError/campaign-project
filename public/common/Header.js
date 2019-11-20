@@ -20,6 +20,7 @@ class Header extends Component {
         <nav class="main-nav">
             <a href="../main/main.html">Candidates</a>
             <a href="../compare/compare-graph.html">Compare</a>
+            <a href="../about-us/about-us.html">About Us</a>
             <a class="logout" href="../index.html">Logout</a>
         </nav>
     </header>
