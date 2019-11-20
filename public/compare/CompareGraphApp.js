@@ -13,12 +13,11 @@ export class GraphApp extends Componenet {
         dom.prepend(headerDOM);
         const graphSection = dom.querySelector('.graph');
         
-        const graph = await loadGraph();
+        await loadGraph();
         debugger
-        graphSection.appendChild(graph);
         const favoritesIds = await getFavorites();
         const favoritesIdsObject = favoritesIds.reduce((acc, curr) => {
-            acc[curr] = curr; 
+            acc[curr.candidate_id] = curr.candidate_id; 
             return acc;
         }, {});
         const candidates = await getCandidates();
@@ -36,7 +35,7 @@ export class GraphApp extends Componenet {
             addCandidateSelect.appendChild(option);
         });
         const candidatesAreFavorites = candidateNamesAndIds.filter(candidate => {
-            return candidate.id !== favoritesIdsObject[candidate.id];
+            return candidate.id === favoritesIdsObject[candidate.id];
         });
         const removeCandidateSelect = document.getElementById('remove');
         candidatesAreFavorites.forEach(candidate => {
@@ -52,7 +51,7 @@ export class GraphApp extends Componenet {
                 candidate_id: id
             };
             await addAFavorite(thisFavorite);
-            loadGraph();
+            await loadGraph();
         });
         removeCandidateSelect.addEventListener('change', async(event) => {
             const id = event.target.value;
@@ -60,15 +59,15 @@ export class GraphApp extends Componenet {
                 candidate_id: id
             };
             await deleteAFavorite(thisFavorite);
-            loadGraph();
+            await loadGraph();
         });
 
     }
 
     renderHTML(){
-        return /*html*/ `
-        <div>
-            <form>
+        const dom = /*html*/ `
+    <div>
+        <form>
                 <label>Add a Candidate</label>
                 <select id = 'add'>
                     
@@ -77,11 +76,15 @@ export class GraphApp extends Componenet {
                 <select id = 'remove'>
                     
                 <select>
-            </form>
-        <section class="graph">
-
+        </form>
+        <section class = "graph">
+            <div id="container">
+                <div id="chart"></div>
+            </div>
         </section>   
-        </div>
+    </div>
         `;
+        return dom;
     }
+
 }
