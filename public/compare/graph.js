@@ -19,21 +19,12 @@ const loadGraph = async() => {
         const matches = mungedDataArray.filter(match => candidate.candidate_id === match.id);
         matches.forEach(obj => obj.to = candidate.candidate_name);
     });
-    let displayData = [];
     let favoriteData = [];
-    if (favorites !== []) {
-        favorites.forEach(fav => {
-            favoriteData.push(mungedDataArray.filter(data => fav.candidate_id === data.candidate_id));
-        });
-        displayData = favoriteData.flat();
-        
-    } else console.log(mungedDataArray);
-    mungedDataArray.forEach(item => {
-        displayData.push(item) ;
+    favorites.forEach(fav => {
+        favoriteData.push(mungedDataArray.filter(data => fav.candidate_id === data.candidate_id));
     });
-
+    let displayData = (favorites.length > 0) ? favoriteData.flat() : mungedDataArray;
     
-    console.log(displayData);
     // create a chart and set the data
     const chart = anychart.sankey(displayData);
   // set the width of nodes
