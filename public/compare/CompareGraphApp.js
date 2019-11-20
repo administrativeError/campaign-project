@@ -8,13 +8,13 @@ export class GraphApp extends Componenet {
 
     async onRender(dom){
         const header = new Header();
-        debugger
+
         const headerDOM = header.renderDOM();
         dom.prepend(headerDOM);
         const graphSection = dom.querySelector('.graph');
         
         await loadGraph();
-        debugger
+
         const favoritesIds = await getFavorites();
         const favoritesIdsObject = favoritesIds.reduce((acc, curr) => {
             acc[curr.candidate_id] = curr.candidate_id; 
