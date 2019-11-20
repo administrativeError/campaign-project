@@ -8,10 +8,16 @@ class CandidateList extends Component {
     async onRender(ul) {
         const candidates = this.props.candidates;
         const favList = this.props.favList;
-        candidates.forEach(candidate => {
+
+        candidates.results.forEach(candidate => {
             const candidateItem = new CandidateItem({ candidate : candidate, favList : favList });
             ul.appendChild(candidateItem.renderDOM());
         });
+
+        // candidates.results.forEach(candidate => {
+        //     const candidateItem = new CandidateItem(candidate);
+        //     
+        // });
     }
 
     renderHTML() {
