@@ -1,13 +1,15 @@
-import Componenet from '../Component.js';
+import Component from '../Component.js';
 import Header from '../common/Header.js';
 import { loadGraph } from './graph.js';
 import { getFavorites, getCandidates, addAFavorite, deleteAFavorite } from '../services/api.js';
 
 
-export class GraphApp extends Componenet {
+export class GraphApp extends Component {
 
-    async onRender(dom){
+    async onRender(dom) {
+        loadGraph();
         const header = new Header();
+<<<<<<< HEAD
 
         const headerDOM = header.renderDOM();
         dom.prepend(headerDOM);
@@ -15,6 +17,10 @@ export class GraphApp extends Componenet {
         
         await loadGraph();
 
+=======
+        const headerDOM = header.renderDOM();
+        dom.prepend(headerDOM);
+>>>>>>> 656a1f6cc55f38375e5a826e8dd3166dc1a833ab
         const favoritesIds = await getFavorites();
         const favoritesIdsObject = favoritesIds.reduce((acc, curr) => {
             acc[curr.candidate_id] = curr.candidate_id; 
@@ -27,7 +33,11 @@ export class GraphApp extends Componenet {
         const candidatesNotFavorites = candidateNamesAndIds.filter(candidate => {
             return candidate.id !== favoritesIdsObject[candidate.id];
         });
+        
         const addCandidateSelect = document.getElementById('add');
+        if (!addCandidateSelect.value) {
+            this.update();
+        }
         candidatesNotFavorites.forEach(candidate => {
             const option = document.createElement('option');
             option.textContent = candidate.name;
@@ -44,6 +54,7 @@ export class GraphApp extends Componenet {
             option.value = candidate.id;
             removeCandidateSelect.appendChild(option);
         });
+        
 
         addCandidateSelect.addEventListener('change', async(event) => {
             const id = event.target.value;
@@ -51,7 +62,7 @@ export class GraphApp extends Componenet {
                 candidate_id: id
             };
             await addAFavorite(thisFavorite);
-            await loadGraph();
+            this.update();
         });
         removeCandidateSelect.addEventListener('change', async(event) => {
             const id = event.target.value;
@@ -59,7 +70,7 @@ export class GraphApp extends Componenet {
                 candidate_id: id
             };
             await deleteAFavorite(thisFavorite);
-            await loadGraph();
+            this.update();
         });
 
     }
@@ -70,10 +81,12 @@ export class GraphApp extends Componenet {
         <form>
                 <label>Add a Candidate</label>
                 <select id = 'add'>
+                <option>-------</option>
                     
                 <select>
                 <label>Remove a Candidate</label>
                 <select id = 'remove'>
+                <option>-------</option>
                     
                 <select>
         </form>

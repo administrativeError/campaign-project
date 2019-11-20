@@ -1,28 +1,32 @@
 import { getCandidateCashData, getCandidates } from '../services/api.js';
-export const loadGraph = async () => {
-
-
+import { getFavorites } from '../services/api.js';
+export const loadGraph = async() => {
+    const favorites = await getFavorites();
+  
+    console.log(favorites);
+  
+    
     const realData = await getCandidateCashData();
     const realCandidates = await getCandidates();
-    console.log(realCandidates);
-
     const mungedDataArray = realData.results.map(result => {
         result.from = '> $' + result.size;
         result.id = result.candidate_id;
         result.weight = result.total;
-        return result
-    })
-
-    console.log(mungedDataArray);
-
+        return result;
+    });
+    
     realCandidates.results.forEach(candidate => {
         const matches = mungedDataArray.filter(match => candidate.candidate_id === match.id);
-        matches.forEach(obj => obj.to = candidate.candidate_name)
+        matches.forEach(obj => obj.to = candidate.candidate_name);
     });
-
-  // create a chart and set the data
-    const chart = anychart.sankey(mungedDataArray);
-  
+    let favoriteData = [];
+    favorites.forEach(fav => {
+        favoriteData.push(mungedDataArray.filter(data => fav.candidate_id === data.candidate_id));
+    });
+    let displayData = (favorites.length > 0) ? favoriteData.flat() : mungedDataArray;
+    
+    // create a chart and set the data
+    const chart = anychart.sankey(displayData);
   // set the width of nodes
     chart.nodeWidth('30%');
   
@@ -37,4 +41,3 @@ export const loadGraph = async () => {
   // initiate drawing the chart
     chart.draw();
 };
-loadGraph();

@@ -13,15 +13,17 @@ function success(user) {
 class AuthApp extends Component {
 
     onRender(dom) {
-        const header = new Header();
-        dom.prepend(header.renderDOM());
-
+        
         const errors = dom.querySelector('.errors');
         const signInButton = dom.querySelector('.signin-button');
         const signUpButton = dom.querySelector('.signup-button');
         const signUpContainer = dom.querySelector('#signup-container');
         const signInContainer = dom.querySelector('#signin-container');
-
+        const main = dom.querySelector('.main-child-container');
+        
+        const header = new Header();
+        main.prepend(header.renderDOM());
+        
         const signUp = new SignUp({
             onSignUp: async newUser => {
                 errors.textContent = '';
@@ -71,19 +73,21 @@ class AuthApp extends Component {
 
     renderHTML() {
         return /*html*/`
-            <div>
+            <div class="main-container">
                 <!-- header goes here -->
-                <main>
-                    <p class="errors"></p>
-                    <section class='home-container'>
-                        <button class="signin-button">Sign In</button>
-                        <button class="signup-button">Sign Up</button>
-                        <div style="display:none;" id="signup-container">
-                        </div>
-                        <div style="display:none;" id="signin-container">
-                        </div>
-                    </section>
-                </main>
+                <div class="main-child-container">
+                    <main>
+                        <p class="errors"></p>
+                        <section class='home-container'>
+                            <button class="signin-button">Sign In</button>
+                            <button class="signup-button">Sign Up</button>
+                            <div style="display:none;" id="signup-container">
+                            </div>
+                            <div style="display:none;" id="signin-container">
+                            </div>
+                        </section>
+                    </main>
+                </div>
             </div>
         `;
     }
