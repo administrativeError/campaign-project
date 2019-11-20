@@ -1,12 +1,13 @@
-import Componenet from '../Component.js';
+import Component from '../Component.js';
 import Header from '../common/Header.js';
 import { loadGraph } from './graph.js';
 import { getFavorites, getCandidates, addAFavorite, deleteAFavorite } from '../services/api.js';
 
 
-export class GraphApp extends Componenet {
+export class GraphApp extends Component {
 
-    async onRender(dom){
+    async onRender(dom) {
+        loadGraph();
         const header = new Header();
         const headerDOM = header.renderDOM();
         dom.prepend(headerDOM);
@@ -22,7 +23,11 @@ export class GraphApp extends Componenet {
         const candidatesNotFavorites = candidateNamesAndIds.filter(candidate => {
             return candidate.id !== favoritesIdsObject[candidate.id];
         });
+        
         const addCandidateSelect = document.getElementById('add');
+        if (!addCandidateSelect.value) {
+            this.update();
+        }
         candidatesNotFavorites.forEach(candidate => {
             const option = document.createElement('option');
             option.textContent = candidate.name;
@@ -39,6 +44,7 @@ export class GraphApp extends Componenet {
             option.value = candidate.id;
             removeCandidateSelect.appendChild(option);
         });
+        
 
         addCandidateSelect.addEventListener('change', async(event) => {
             const id = event.target.value;
@@ -46,6 +52,7 @@ export class GraphApp extends Componenet {
                 candidate_id: id
             };
             await addAFavorite(thisFavorite);
+            this.update();
         });
         removeCandidateSelect.addEventListener('change', async(event) => {
             const id = event.target.value;
@@ -53,6 +60,7 @@ export class GraphApp extends Componenet {
                 candidate_id: id
             };
             await deleteAFavorite(thisFavorite);
+            this.update();
         });
 
     }

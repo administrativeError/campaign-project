@@ -41,4 +41,3 @@ export const loadGraph = async() => {
   // initiate drawing the chart
     chart.draw();
 };
-loadGraph();
