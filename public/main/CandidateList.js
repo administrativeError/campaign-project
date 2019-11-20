@@ -24,6 +24,7 @@ class CandidateList extends Component {
         return /*html*/ `
         <ul class="candidate-list">
 
+        <button>Compare</button>
         </ul>   
         `;
     }

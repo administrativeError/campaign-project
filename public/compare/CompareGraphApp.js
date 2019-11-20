@@ -4,14 +4,17 @@ import { loadGraph } from './graph.js';
 import { getFavorites, getCandidates, addAFavorite, deleteAFavorite } from '../services/api.js';
 
 
-class GraphApp extends Componenet {
+export class GraphApp extends Componenet {
 
     async onRender(dom){
         const header = new Header();
+        debugger
         const headerDOM = header.renderDOM();
         dom.prepend(headerDOM);
         const graphSection = dom.querySelector('.graph');
-        const graph = loadGraph();
+        
+        const graph = await loadGraph();
+        debugger
         graphSection.appendChild(graph);
         const favoritesIds = await getFavorites();
         const favoritesIdsObject = favoritesIds.reduce((acc, curr) => {
@@ -65,7 +68,7 @@ class GraphApp extends Componenet {
     renderHTML(){
         return /*html*/ `
         <div>
-            <!-- <form>
+            <form>
                 <label>Add a Candidate</label>
                 <select id = 'add'>
                     
@@ -74,13 +77,11 @@ class GraphApp extends Componenet {
                 <select id = 'remove'>
                     
                 <select>
-            </form> -->
+            </form>
         <section class="graph">
 
         </section>   
-        <div>
+        </div>
         `;
     }
 }
-
-export default GraphApp;

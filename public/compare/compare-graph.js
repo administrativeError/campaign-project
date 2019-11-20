@@ -1,4 +1,5 @@
-import CompareGraphApp from './CompareGraphApp.js';
+import { GraphApp } from './CompareGraphApp.js';
 
-const graphPageDOM = CompareGraphApp.renderDom();
+const graphPage = new GraphApp();
+const graphPageDOM = graphPage.renderDOM();
 document.body.appendChild(graphPageDOM);
