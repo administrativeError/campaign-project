@@ -5,29 +5,32 @@ class CandidateItem extends Component {
     
     onRender(li) {
         
-        
         const header2 = li.querySelector('h2');
         header2.addEventListener('click', async(event) => {
-         
-            let currentFavorites = await getFavorites();
-            currentFavorites.forEach(favorite => {
-                console.log(favorite)
-            })
-                    const candidate = {
-                        candidate_id: event.target.id
-                        //     addAFavorite(candidate);
-                    };
-            // currentFavorites = currentFavorites.filter(favorite => {
-            //     return favorite.candidate_id === event.target.id;
-            // });
-            // console.log(currentFavorites)
-            // if (currentFavorites === []) {
-            // } else {
-                
-            //     deleteAFavorite(currentFavorites[0]);
-            // }
             
-            //favList.push(event.target.id);
+            let currentFavorites = await getFavorites();
+
+            let thisFavorite = {
+                candidate_id: event.target.id
+            };
+
+            const foundMatch = currentFavorites.reduce((acc, index) => {
+                if (index.candidate_id === thisFavorite.candidate_id) {
+                    acc = true;
+                    return acc;
+                } else {
+                    return acc;
+                }
+            }, false);
+
+            console.log(foundMatch);
+
+            if (foundMatch) {
+                deleteAFavorite(thisFavorite);
+                
+            } else {
+                addAFavorite(thisFavorite);
+            }
         });
     }
     

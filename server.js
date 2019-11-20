@@ -43,6 +43,12 @@ app.use('/api/auth', authRoutes);
 // everything that starts with "/api" below here requires an auth token!
 app.use('/api', ensureAuth);
 
+app.get('/api/test', (req, res) => {
+    res.json({
+        message: `the user's id is ${req.userId}`
+    });
+});
+
 app.post('/api/favorites', async(req, res) => {
     const candidateId = req.body;
     const userId = req.userId;
@@ -89,14 +95,14 @@ app.get('/api/favorites', async(req, res) => {
 
 app.delete('/api/favorites', async(req, res) => {
     const candidateId = req.body;
-    console.log(candidateId);
     const userId = req.userId;
+
     try {
         const result = await client.query(`
             DELETE from favorites
-            WHERE candidate_id = '${candidateId}' user_id = ${userId};
-        `
-        // [candidateId.candidate_id, userId]
+            WHERE candidate_id = $1 AND user_id = $2;
+        `,
+        [candidateId.candidate_id, userId]
         );
 
         res.json(result.rows[0]);
@@ -109,11 +115,6 @@ app.delete('/api/favorites', async(req, res) => {
     }  
 })
 
-app.get('/api/test', (req, res) => {
-    res.json({
-        message: `the user's id is ${req.userId}`
-    });
-});
 
 // Start the server
 app.listen(PORT, () => {
