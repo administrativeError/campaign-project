@@ -1,16 +1,25 @@
-import staticdata from './staticdata.js';
-import { getCandidates } from '../services/api.js';
+import { getCandidateCashData, getCandidates } from '../services/api.js';
+const loadGraph = async () => {
 
-console.log(getCandidates());
-const mungedDataArray = [];
-staticdata.results.forEach(result => {
-    result.from = result.size;
-    result.to = result.candidate_id;
-    result.weight = result.total;
-    mungedDataArray.push(result);
+
+const realData = await getCandidateCashData();
+const realCandidates = await getCandidates();
+console.log(realCandidates);
+
+const mungedDataArray = realData.results.map(result => {
+  result.from = '> $' + result.size;
+  result.id = result.candidate_id;
+  result.weight = result.total;
+return result
+})
+
+console.log(mungedDataArray);
+
+realCandidates.results.forEach(candidate => {
+      const matches = mungedDataArray.filter(match => candidate.candidate_id === match.id);
+      matches.forEach(obj => obj.to = candidate.candidate_name)
 });
 
-  
   // create a chart and set the data
 const chart = anychart.sankey(mungedDataArray);
   
@@ -21,5 +30,11 @@ chart.nodeWidth('30%');
 chart.container('chart');
   // chart.setSize('100%', '100%');
   
+  const title = chart.title();
+  title.text('Candidate Donations by Dollar Amount');
+  title.enabled(true);
+
   // initiate drawing the chart
 chart.draw();
+};
+loadGraph();
