@@ -12,13 +12,43 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Merriweather Sans', sans-serif;
+}
+
+h1 {
+    font-family:'Barlow', sans-serif;
+    color: white;
+    text-transform: uppercase;
+}
+
+.title-header {
+    border-bottom: 1px solid #006590;
+    padding-bottom: 5px;
+    margin: 0 15px;
 }
 
 .main-container {
+    text-align: center;
     background-color: rgba(0, 189, 234, 0.9);
     border-radius: 3px;
     display: flex;
     justify-content: center;
     align-items: center;
+    color: white;
 }
-
+.signin-button{
+    color: white;
+    font-family: 'Merriweather Sans';
+    background-color: #006590;
+    border: 0;
+    border-radius: 25px;
+    padding: 10px 20px;
+}
+.signup-button{
+    color: white;
+    font-family: 'Merriweather Sans';
+    background-color: #006590;
+    border: 0;
+    border-radius: 25px;
+    padding: 10px 20px;
+}
