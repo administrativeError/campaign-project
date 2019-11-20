@@ -7,7 +7,8 @@ import { getFavorites, getCandidates, addAFavorite, deleteAFavorite } from '../s
 export class GraphApp extends Component {
 
     async onRender(dom) {
-        loadGraph();
+        const year = parseInt(localStorage.getItem('YEAR'));
+        loadGraph(year);
         const header = new Header();
         const headerDOM = header.renderDOM();
         dom.prepend(headerDOM);
@@ -16,7 +17,7 @@ export class GraphApp extends Component {
             acc[curr.candidate_id] = curr.candidate_id; 
             return acc;
         }, {});
-        const candidates = await getCandidates();
+        const candidates = await getCandidates(year);
         const candidateNamesAndIds = candidates.results.map(candidate =>{
             return { name : candidate.candidate_name, id: candidate.candidate_id };
         });

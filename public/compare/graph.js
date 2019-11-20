@@ -1,13 +1,12 @@
 import { getCandidateCashData, getCandidates } from '../services/api.js';
 import { getFavorites } from '../services/api.js';
-export const loadGraph = async() => {
+export const loadGraph = async(year) => {
     const favorites = await getFavorites();
-  
-    console.log(favorites);
-  
     
+    console.log(favorites);
+
     const realData = await getCandidateCashData(year);
-    const realCandidates = await getCandidates();
+    const realCandidates = await getCandidates(year);
     const mungedDataArray = realData.results.map(result => {
         result.from = '> $' + result.size;
         result.id = result.candidate_id;

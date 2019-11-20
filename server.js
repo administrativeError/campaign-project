@@ -52,8 +52,7 @@ app.post('/api/candidates', async(request, response) => {
     const year = request.body.year;
     const yearInt = parseInt(year);
     
-    console.log('???????????????????', year);
-
+    
     const candidateNamesURL = `https://api.open.fec.gov/v1/elections/?sort_null_only=true&page=1&election_full=true&sort_nulls_last=true&sort=-total_receipts&cycle=${yearInt}&sort_hide_null=true&office=president&api_key=${apiKey}&per_page=20`;
     const candidateNames = await superagent.get(candidateNamesURL);
     const actualCandidateNames = JSON.parse(candidateNames.text);
@@ -71,10 +70,14 @@ const nameData = async url => {
 };
 
 
-app.get('/api/candidate-cash', async(request, response) => {
+app.post('/api/candidate-cash', async(request, response) => {
+    const year = request.body.year;
+    const yearInt = parseInt(year);
+    console.log('???????????????????', year);
+    const candidateNamesURL = `https://api.open.fec.gov/v1/elections/?sort_null_only=true&page=1&election_full=true&sort_nulls_last=true&sort=-total_receipts&cycle=${yearInt}&sort_hide_null=true&office=president&api_key=${apiKey}&per_page=20`;
     const candidateNames = await nameData(candidateNamesURL);
     const candidateIdArray = candidateNames.results.map(({ candidate_id }) => candidate_id);
-    const candidateCashURL = `https://api.open.fec.gov/v1/schedules/schedule_a/by_size/by_candidate/?per_page=100&sort_hide_null=false&sort=size&sort_nulls_last=false&election_full=true&page=1&candidate_id=${candidateIdArray[0]}&candidate_id=${candidateIdArray[1]}&candidate_id=${candidateIdArray[2]}&candidate_id=${candidateIdArray[3]}&candidate_id=${candidateIdArray[4]}&candidate_id=${candidateIdArray[5]}&candidate_id=${candidateIdArray[6]}&candidate_id=${candidateIdArray[7]}&candidate_id=${candidateIdArray[8]}&candidate_id=${candidateIdArray[9]}&candidate_id=${candidateIdArray[10]}&candidate_id=${candidateIdArray[11]}&candidate_id=${candidateIdArray[12]}&candidate_id=${candidateIdArray[13]}&candidate_id=${candidateIdArray[14]}&candidate_id=${candidateIdArray[15]}&candidate_id=${candidateIdArray[16]}&candidate_id=${candidateIdArray[17]}&candidate_id=${candidateIdArray[18]}&candidate_id=${candidateIdArray[19]}&api_key=${apiKey}&sort_null_only=false&cycle=2020`;
+    const candidateCashURL = `https://api.open.fec.gov/v1/schedules/schedule_a/by_size/by_candidate/?per_page=100&sort_hide_null=false&sort=size&sort_nulls_last=false&election_full=true&page=1&candidate_id=${candidateIdArray[0]}&candidate_id=${candidateIdArray[1]}&candidate_id=${candidateIdArray[2]}&candidate_id=${candidateIdArray[3]}&candidate_id=${candidateIdArray[4]}&candidate_id=${candidateIdArray[5]}&candidate_id=${candidateIdArray[6]}&candidate_id=${candidateIdArray[7]}&candidate_id=${candidateIdArray[8]}&candidate_id=${candidateIdArray[9]}&candidate_id=${candidateIdArray[10]}&candidate_id=${candidateIdArray[11]}&candidate_id=${candidateIdArray[12]}&candidate_id=${candidateIdArray[13]}&candidate_id=${candidateIdArray[14]}&candidate_id=${candidateIdArray[15]}&candidate_id=${candidateIdArray[16]}&candidate_id=${candidateIdArray[17]}&candidate_id=${candidateIdArray[18]}&candidate_id=${candidateIdArray[19]}&api_key=${apiKey}&sort_null_only=false&cycle=${yearInt}`;
     const candidateCashData = await fetch(candidateCashURL);
     const actualCandidateCashData = await candidateCashData.json();
 

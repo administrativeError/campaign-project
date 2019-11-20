@@ -48,7 +48,7 @@ export function getCandidateCashData(year) {
         headers :{
             'Content-Type' : 'application/json',
         },
-        body : JSON.stringify(year)
+        body : JSON.stringify({ year })
     });
 }
 
