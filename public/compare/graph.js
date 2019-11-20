@@ -1,5 +1,5 @@
 import { getCandidateCashData, getCandidates } from '../services/api.js';
-const loadGraph = async () => {
+export const loadGraph = async () => {
 
 
 const realData = await getCandidateCashData();
