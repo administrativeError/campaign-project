@@ -1,8 +1,7 @@
 import Component from '../Component.js';
 import CandidateList from './CandidateList.js';
 import Header from '../common/Header.js';
-// import Footer from '../common/Footer.js';
-import { getTopTwentyCandidates } from '../services/api.js';
+import { getCandidates } from '../services/api.js';
 import Loading from '../common/Loading.js';
 
 class MainApp extends Component {
@@ -15,15 +14,15 @@ class MainApp extends Component {
 
         // const footer = new Footer();
         // dom.appendChild(footer.renderDOM());
+        const candidates = await getCandidates();
 
         const main = dom.querySelector('main');
-        const candidateList = new CandidateList({ candidates: [], favList : [] });
-        
+        const candidateList = new CandidateList({ candidates });
         main.appendChild(candidateList.renderDOM());
 
         try {
-            const candidates = await getTopTwentyCandidates();
-            candidateList.update({ candidates });
+            // const candidates = await getTopTwentyCandidates();
+            // candidateList.update({ candidates });
         }
         catch (err) {
             console.log('Load candidates failed\n', err);
