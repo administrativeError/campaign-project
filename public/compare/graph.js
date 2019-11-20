@@ -6,7 +6,7 @@ export const loadGraph = async() => {
     console.log(favorites);
   
     
-    const realData = await getCandidateCashData();
+    const realData = await getCandidateCashData(year);
     const realCandidates = await getCandidates();
     const mungedDataArray = realData.results.map(result => {
         result.from = '> $' + result.size;

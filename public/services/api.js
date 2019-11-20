@@ -31,13 +31,25 @@ async function fetchWithError(url, options) {
         throw data.error;
     }
 }
-export function getCandidates() {
+export function getCandidates(year) {
     const url = `${BASE_URL}/candidates`;
-    return fetchWithError(url);
+    return fetchWithError(url, {
+        method : 'POST',
+        headers :{
+            'Content-Type' : 'application/json',
+        },
+        body : JSON.stringify({ year })
+    });
 }
-export function getCandidateCashData() {
+export function getCandidateCashData(year) {
     const url = `${BASE_URL}/candidate-cash`;
-    return fetchWithError(url);
+    return fetchWithError(url, {
+        method : 'POST',
+        headers :{
+            'Content-Type' : 'application/json',
+        },
+        body : JSON.stringify(year)
+    });
 }
 
 export function addAFavorite(favorite){

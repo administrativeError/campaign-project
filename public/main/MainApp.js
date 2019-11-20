@@ -12,9 +12,23 @@ class MainApp extends Component {
         const loading = new Loading();
         dom.appendChild(loading.renderDOM());
 
+        const yearArray = [];
+        for (let i = 2020; i > 1979; i = i - 4){
+            yearArray.push(i);
+        }
+        console.log(yearArray);
+        const yearSelect = dom.querySelector('.select-year');
+        yearArray.forEach(year => {
+            const option = document.createElement('option');
+            option.textContent = year;
+            option.value = year;
+            yearSelect.appendChild(option);
+        });
+        console.log(yearSelect.value);
+        
         // const footer = new Footer();
         // dom.appendChild(footer.renderDOM());
-        const candidates = await getCandidates();
+        const candidates = await getCandidates(yearSelect.value);
 
         const main = dom.querySelector('main');
         const candidateList = new CandidateList({ candidates });
@@ -41,6 +55,9 @@ class MainApp extends Component {
         return /*html*/`
         <div>
             <main>
+                <select class="select-year">
+                    
+                </select>
         
             </main>
         </div>
