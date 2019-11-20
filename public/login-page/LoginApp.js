@@ -23,7 +23,7 @@ class AuthApp extends Component {
         
         const header = new Header();
         main.prepend(header.renderDOM());
-        
+
         const signUp = new SignUp({
             onSignUp: async newUser => {
                 errors.textContent = '';
@@ -80,6 +80,7 @@ class AuthApp extends Component {
                         <p class="errors"></p>
                         <section class='home-container'>
                             <button class="signin-button">Sign In</button>
+                            <p class="not-member">Not a member?</p>
                             <button class="signup-button">Sign Up</button>
                             <div style="display:none;" id="signup-container">
                             </div>
