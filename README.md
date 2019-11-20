@@ -24,3 +24,6 @@ Coming Soon
 
 Coming Soon
 
+## Web Content Accessibility Guidelines 
+
+We meet the standards of AA for WCAG 2.2, and are always looking to improve. 
