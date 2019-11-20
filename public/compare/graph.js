@@ -6,29 +6,29 @@ const realData = await getCandidateCashData();
 const realCandidates = await getCandidates();
 // console.log(realCandidates);
 
-let mungedDataArray = [];
-
-realData.results.forEach(result => {
+const mungedDataArray = realData.results.map(result => {
   result.from = '> $' + result.size;
-  result.id = result.candidate_id;
+  result.to = result.candidate_id;
   result.weight = result.total;
-  mungedDataArray.push(result);
-});
-let namedArray = mungedDataArray.map(obj => {
-  const match = realCandidates.results.find((candidate) =>{
-    return candidate.candidate_id === obj.id;
-    })
-  const newObj = Object.assign(match, obj);
-  return newObj
-});
-let officialNamedArray = namedArray.map(item => {
-  item.to = item.candidate_name
-  return item;
+return result
 })
 
-console.log(officialNamedArray);
+console.log(mungedDataArray);
+// let namedArray = mungedDataArray.map(obj => {
+//   const match = realCandidates.results.find((candidate) =>{
+//     return candidate.candidate_id === obj.id;
+//     })
+//   const newObj = Object.assign(match, obj);
+//   return newObj
+// });
+// let officialNamedArray = namedArray.map(item => {
+//   item.to = item.candidate_name
+//   return item;
+// })
+
+// console.log(officialNamedArray);
   // create a chart and set the data
-const chart = anychart.sankey(officialNamedArray);
+const chart = anychart.sankey(mungedDataArray);
   
   // set the width of nodes
 chart.nodeWidth('30%');
