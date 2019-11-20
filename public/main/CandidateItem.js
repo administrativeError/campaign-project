@@ -23,7 +23,7 @@ class CandidateItem extends Component {
                 }
             }, false);
 
-            console.log(foundMatch);
+           
 
             if (foundMatch) {
                 deleteAFavorite(thisFavorite);

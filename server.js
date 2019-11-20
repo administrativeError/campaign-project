@@ -37,17 +37,35 @@ app.use(morgan('dev')); // http logging
 app.use(cors()); // enable CORS request
 app.use(express.static('public')); // server files from /public folder
 app.use(express.json()); // enable reading incoming json data
-// setup authentication routes
-app.use('/api/auth', authRoutes);
-
-// everything that starts with "/api" below here requires an auth token!
-app.use('/api', ensureAuth);
+app.use('/api/auth', authRoutes); // setup authentication routes
+app.use('/api', ensureAuth); // everything that starts with "/api" below here requires an auth token!
 
 app.get('/api/test', (req, res) => {
     res.json({
         message: `the user's id is ${req.userId}`
     });
 });
+
+app.get('/api/favorites', async(req, res) => {
+    const userId = req.userId;
+    try {
+        const result = await client.query(`
+            SELECT * from favorites
+            WHERE user_id = $1;
+        `,
+        [userId]
+        );
+
+        res.json(result.rows);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({
+            error: err.message || err
+        });
+    }
+});
+
 
 app.post('/api/favorites', async(req, res) => {
     const candidateId = req.body;
@@ -72,40 +90,21 @@ app.post('/api/favorites', async(req, res) => {
     }  
 });
 
-app.get('/api/favorites', async(req, res) => {
-    const userId = req.userId;
-    console.log(userId);
-    try {
-        const result = await client.query(`
-            SELECT * from favorites
-            WHERE user_id = $1;
-        `,
-        [userId]
-        );
-
-        res.json(result.rows);
-    }
-    catch (err) {
-        console.log(err);
-        res.status(500).json({
-            error: err.message || err
-        });
-    }  
-})
-
 app.delete('/api/favorites', async(req, res) => {
     const candidateId = req.body;
     const userId = req.userId;
 
     try {
-        const result = await client.query(`
+        console.log(req.body, userId);
+
+        await client.query(`
             DELETE from favorites
             WHERE candidate_id = $1 AND user_id = $2;
         `,
         [candidateId.candidate_id, userId]
         );
 
-        res.json(result.rows[0]);
+        res.json({ success: true });
     }
     catch (err) {
         console.log(err);
@@ -113,7 +112,7 @@ app.delete('/api/favorites', async(req, res) => {
             error: err.message || err
         });
     }  
-})
+});
 
 
 // Start the server
