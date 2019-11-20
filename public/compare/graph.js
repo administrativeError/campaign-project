@@ -4,29 +4,22 @@ const loadGraph = async () => {
 
 const realData = await getCandidateCashData();
 const realCandidates = await getCandidates();
-// console.log(realCandidates);
+console.log(realCandidates);
 
 const mungedDataArray = realData.results.map(result => {
   result.from = '> $' + result.size;
-  result.to = result.candidate_id;
+  result.id = result.candidate_id;
   result.weight = result.total;
 return result
 })
 
 console.log(mungedDataArray);
-// let namedArray = mungedDataArray.map(obj => {
-//   const match = realCandidates.results.find((candidate) =>{
-//     return candidate.candidate_id === obj.id;
-//     })
-//   const newObj = Object.assign(match, obj);
-//   return newObj
-// });
-// let officialNamedArray = namedArray.map(item => {
-//   item.to = item.candidate_name
-//   return item;
-// })
 
-// console.log(officialNamedArray);
+realCandidates.results.forEach(candidate => {
+      const matches = mungedDataArray.filter(match => candidate.candidate_id === match.id);
+      matches.forEach(obj => obj.to = candidate.candidate_name)
+});
+
   // create a chart and set the data
 const chart = anychart.sankey(mungedDataArray);
   
