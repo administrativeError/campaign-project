@@ -8,13 +8,8 @@ export class GraphApp extends Componenet {
 
     async onRender(dom){
         const header = new Header();
-        debugger
         const headerDOM = header.renderDOM();
         dom.prepend(headerDOM);
-        const graphSection = dom.querySelector('.graph');
-        
-        await loadGraph();
-        debugger
         const favoritesIds = await getFavorites();
         const favoritesIdsObject = favoritesIds.reduce((acc, curr) => {
             acc[curr.candidate_id] = curr.candidate_id; 
@@ -51,7 +46,6 @@ export class GraphApp extends Componenet {
                 candidate_id: id
             };
             await addAFavorite(thisFavorite);
-            await loadGraph();
         });
         removeCandidateSelect.addEventListener('change', async(event) => {
             const id = event.target.value;
@@ -59,7 +53,6 @@ export class GraphApp extends Componenet {
                 candidate_id: id
             };
             await deleteAFavorite(thisFavorite);
-            await loadGraph();
         });
 
     }
@@ -70,10 +63,12 @@ export class GraphApp extends Componenet {
         <form>
                 <label>Add a Candidate</label>
                 <select id = 'add'>
+                <option>-------</option>
                     
                 <select>
                 <label>Remove a Candidate</label>
                 <select id = 'remove'>
+                <option>-------</option>
                     
                 <select>
         </form>

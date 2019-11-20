@@ -1,6 +1,6 @@
 import { getCandidateCashData, getCandidates } from '../services/api.js';
 import { getFavorites } from '../services/api.js';
-const loadGraph = async() => {
+export const loadGraph = async() => {
     const favorites = await getFavorites();
   
     console.log(favorites);
