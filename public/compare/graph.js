@@ -1,20 +1,34 @@
-import staticdata from './staticdata.js';
-import { getCandidateCashData } from '../services/api.js';
-const realdata = getCandidateCashData();
-console.log(realdata);
+import { getCandidateCashData, getCandidates } from '../services/api.js';
+const loadGraph = async () => {
 
-console.log(getCandidates());
-const mungedDataArray = [];
-realdata.results.forEach(result => {
+
+const realData = await getCandidateCashData();
+const realCandidates = await getCandidates();
+// console.log(realCandidates);
+
+let mungedDataArray = [];
+
+realData.results.forEach(result => {
   result.from = '> $' + result.size;
-  result.to = result.candidate_id;
+  result.id = result.candidate_id;
   result.weight = result.total;
   mungedDataArray.push(result);
+});
+let namedArray = mungedDataArray.map(obj => {
+  const match = realCandidates.results.find((candidate) =>{
+    return candidate.candidate_id === obj.id;
+    })
+  const newObj = Object.assign(match, obj);
+  return newObj
+});
+let officialNamedArray = namedArray.map(item => {
+  item.to = item.candidate_name
+  return item;
 })
-console.log(mungedDataArray);
-  
+
+console.log(officialNamedArray);
   // create a chart and set the data
-const chart = anychart.sankey(mungedDataArray);
+const chart = anychart.sankey(officialNamedArray);
   
   // set the width of nodes
 chart.nodeWidth('30%');
@@ -29,3 +43,5 @@ chart.container('chart');
 
   // initiate drawing the chart
 chart.draw();
+};
+loadGraph();
