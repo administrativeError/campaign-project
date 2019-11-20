@@ -1,0 +1,24 @@
+
+
+html {
+
+}
+
+body {
+    height: 100vh;
+    background: url('./assets/vote.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-container {
+    background-color: rgba(0, 189, 234, 0.9);
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
