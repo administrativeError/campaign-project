@@ -5,7 +5,6 @@ run();
 async function run() {
 
     try {
-        await client.connect();
     
         await client.query(`
             DROP TABLE IF EXISTS favorites;

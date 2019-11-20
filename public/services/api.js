@@ -40,6 +40,33 @@ export function getCandidateCashData() {
     return fetchWithError(url);
 }
 
+export function addAFavorite(favorite){
+    const url = `${BASE_URL}/favorites/`;
+    return fetchWithError(url, {
+        method : 'POST',
+        headers :{
+            'Content-Type' : 'application/json',
+        },
+        body : JSON.stringify(favorite)
+    });
+}
+
+export function getFavorites(){
+    const url = `${BASE_URL}/favorites/`;
+    return fetchWithError(url);
+}
+
+export function deleteAFavorite(favorite){
+    const url = `${BASE_URL}/favorites/`;
+    return fetchWithError(url, {
+        method : 'DELETE',
+        headers :{
+            'Content-Type' : 'application/json',
+        },
+        body : JSON.stringify(favorite)
+    });
+}
+
 export function signUp(user) {
     const url = `${BASE_URL}/auth/signup`;
     return fetchWithError(url, {

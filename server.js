@@ -32,6 +32,7 @@ const authRoutes = createAuthRoutes({
         `,
         [user.email, user.displayName, hash]
         ).then(result => result.rows[0]);
+        
     }
 });
 
@@ -44,6 +45,72 @@ app.use('/api/auth', authRoutes);
 
 // everything that starts with "/api" below here requires an auth token!
 app.use('/api', ensureAuth);
+
+app.post('/api/favorites', async(req, res) => {
+    const candidateId = req.body;
+    const userId = req.userId;
+    
+    try {
+        const result = await client.query(`
+            INSERT into favorites (candidate_id, user_id)
+            VALUES ($1, $2)
+            RETURNING *;
+        `,
+        [candidateId.candidate_id, userId]
+        );
+
+        res.json(result.rows[0]);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({
+            error: err.message || err
+        });
+    }  
+});
+
+app.get('/api/favorites', async(req, res) => {
+    const userId = req.userId;
+    console.log(userId);
+    try {
+        const result = await client.query(`
+            SELECT * from favorites
+            WHERE user_id = $1;
+        `,
+        [userId]
+        );
+
+        res.json(result.rows);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({
+            error: err.message || err
+        });
+    }  
+})
+
+app.delete('/api/favorites', async(req, res) => {
+    const candidateId = req.body;
+    console.log(candidateId);
+    const userId = req.userId;
+    try {
+        const result = await client.query(`
+            DELETE from favorites
+            WHERE candidate_id = '${candidateId}' user_id = ${userId};
+        `
+        // [candidateId.candidate_id, userId]
+        );
+
+        res.json(result.rows[0]);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(500).json({
+            error: err.message || err
+        });
+    }  
+})
 
 app.get('/api/test', (req, res) => {
     res.json({
