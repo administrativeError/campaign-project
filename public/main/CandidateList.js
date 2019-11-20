@@ -7,7 +7,6 @@ class CandidateList extends Component {
 
     async onRender(ul) {
         const candidates = this.props.candidates;
-
         const favList = this.props.favList;
 
         candidates.results.forEach(candidate => {
@@ -25,6 +24,7 @@ class CandidateList extends Component {
         return /*html*/ `
         <ul class="candidate-list">
 
+        <button>Compare</button>
         </ul>   
         `;
     }
