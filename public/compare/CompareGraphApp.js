@@ -51,7 +51,7 @@ export class GraphApp extends Componenet {
                 candidate_id: id
             };
             await addAFavorite(thisFavorite);
-            loadGraph();
+            await loadGraph();
         });
         removeCandidateSelect.addEventListener('change', async(event) => {
             const id = event.target.value;
@@ -59,7 +59,7 @@ export class GraphApp extends Componenet {
                 candidate_id: id
             };
             await deleteAFavorite(thisFavorite);
-            loadGraph();
+            await loadGraph();
         });
 
     }
