@@ -35,6 +35,22 @@ h1 {
     justify-content: center;
     align-items: center;
     color: white;
+    padding: 30px 0;
+}
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.auth-form label{
+    margin-bottom: 5px;
+}
+.auth-form label input{
+    background-color: white;
+    border-radius: 2px;
+    border: 0;
+    padding: 5px;
 }
 .signin-button{
     color: white;
@@ -43,12 +59,14 @@ h1 {
     border: 0;
     border-radius: 25px;
     padding: 10px 20px;
+    width: 100px;
 }
 .signup-button{
     color: white;
     font-family: 'Merriweather Sans';
-    background-color: #006590;
-    border: 0;
+    background-color: transparent;
+    border: 2px solid white;
     border-radius: 25px;
     padding: 10px 20px;
+
 }
