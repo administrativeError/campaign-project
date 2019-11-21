@@ -2,11 +2,17 @@ import Component from '../Component.js';
 import CandidateList from './CandidateList.js';
 import CompareButton from '../common/CompareButton.js';
 import Header from '../common/Header.js';
-import { getCandidates } from '../services/api.js';
+import { getCandidates, getFavorites } from '../services/api.js';
 import Loading from '../common/Loading.js';
 
 class MainApp extends Component {
+    
     async onRender(dom) {
+        this.state.numberOfFavorites = 0;
+
+        const currentFavorites = await getFavorites();
+        this.state.numberOfFavorites = currentFavorites.length;
+        // console.log(numberOfFavorites);
         const main = dom.querySelector('main');
         const header = new Header();
         dom.prepend(header.renderDOM());
@@ -27,9 +33,19 @@ class MainApp extends Component {
                 yearSelect.appendChild(option);
             });
         
+        
             const candidates = await getCandidates(yearSelect.value);
         
-            const candidateList = new CandidateList({ candidates });
+            const candidateList = new CandidateList({
+                candidates,
+                onCandidateClick: (addThisNumberToState) => {
+                    this.state.numberOfFavorites = this.state.numberOfFavorites + addThisNumberToState;
+                    compareButton.update({numberOfFavorites: this.state.numberOfFavorites});
+                    console.log(this.state.numberOfFavorites);
+                }     
+            });
+        
+
             main.appendChild(candidateList.renderDOM());
             yearSelect.addEventListener('change', async(event) => {
 
@@ -38,13 +54,11 @@ class MainApp extends Component {
                     localStorage.removeItem('YEAR');
                     localStorage.setItem('YEAR', value);
                 } else localStorage.setItem('YEAR', value);
+            
                 const candidates = await getCandidates(value);
+            
                 candidateList.update({ candidates });
             });
-            const compareButton = new CompareButton();
-            main.appendChild(compareButton.renderDOM());
-            // const candidates = await getTopTwentyCandidates();
-            // candidateList.update({ candidates });
         }
         catch (err) {
             console.log('Load candidates failed\n', err);
@@ -54,10 +68,10 @@ class MainApp extends Component {
             loading.update({ loading: false });
             // }, 500);
         }
+        const compareButton = new CompareButton({ numberOfFavorites: this.state.numberOfFavorites });
+        main.appendChild(compareButton.renderDOM());
         
     }
-
-
 
     renderHTML() {
         return /*html*/`

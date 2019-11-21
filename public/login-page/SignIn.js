@@ -32,7 +32,7 @@ class SignIn extends Component {
                 
 
                 <button class="signin-button">Sign In</button>
-
+                <p class="go-back-link"><a href="../index.html">Go Back</a></p>
             </form>
         `;
     }
