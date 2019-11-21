@@ -12,17 +12,38 @@ Administrative Error is a campaign contribution visualization tool to help users
  - 2019-11-22: 1.0.0
      - Initial Release featuring 2020 presidential candidates.
 
+ - 2019-11-21: 1.2.0
+     - Updated Release including Historical Data
+
 ## Libraries & Frameworks
 
-N/A
+"dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.9.1",
+    "node-fetch": "^2.6.0",
+    "nodemon": "^2.0.0",
+    "pg": "^7.12.1",
+    "superagent": "^5.1.0"
+  },
 
 ## API Endpoints
 
-Coming Soon
+https://api.open.fec.gov/developers/#/candidate/get_candidates_totals_
 
 ## Database Schemas
 
-Coming Soon
+Favorites:
+    User:
+    Candidate ID:
+
+Users:
+    Username:
+    email:
+    password:
 
 ## Web Content Accessibility Guidelines 
 
