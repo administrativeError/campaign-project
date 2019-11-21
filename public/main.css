@@ -128,10 +128,8 @@ select {
     align-items: center;
     grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
     grid-gap: 15px;
-    padding-left: 10px;
-    margin: 10px 10px 0 10px;
-    width: 100vw;
-
+    padding-left: 0;
+    margin: 10px 10px 80px;
 }
 
 .candidate-item {
@@ -143,7 +141,10 @@ select {
 }
 
 .candidate-item:hover {
-    border: 2px #006590 solid;
+    box-shadow: inset 0px 0px 0px 3px #006590, 0 6px 12px 0 rgba(124, 124, 124, .5);
+    box-sizing: border-box;
+    cursor: pointer;
+
 }
 
 .candidate-item:active,
@@ -159,6 +160,13 @@ select {
     color: #666868;
     font-weight: 500;
 }
+
+@media screen and (min-width:425px) {
+    .candidate-list {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
 @media screen and (min-width:500px){
     .filter-candidates {
         display: flex;
@@ -167,5 +175,18 @@ select {
     }
     .select-candidate {
         margin: 10px;
+    }
+
+}
+
+@media screen and (min-width:1024px){
+    .candidate-list {
+        grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+    }
+}
+
+@media screen and (min-width:1440px){
+    .candidate-list {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     }
 }
