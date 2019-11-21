@@ -13,10 +13,10 @@ class MainApp extends Component {
 
         const header = new Header();
         dom.prepend(header.renderDOM());
-
-        const loading = new Loading();
-        console.log(loading.renderDOM())
+        
+        const loading = new Loading({loading:true});
         dom.appendChild(loading.renderDOM());
+    try {
         localStorage.setItem('YEAR', '2020');
         const yearArray = [];
         for (let i = 2020; i > 1979; i = i - 4){
@@ -37,6 +37,13 @@ class MainApp extends Component {
         const candidateList = new CandidateList({ candidates });
         main.appendChild(candidateList.renderDOM());
         
+        // const compareButtonListener = dom.querySelectorAll('#compare-button-bottom');
+        
+   
+        // compareButtonListener.addEventListener('click', () => {
+        //     window.location='../compare/compare-graph.html';
+        // });
+
         yearSelect.addEventListener('change', async(event) => {
 
             const value = event.target.value;
@@ -49,7 +56,8 @@ class MainApp extends Component {
             console.log(candidates);
             candidateList.update({ candidates });
         });
-        try {
+        const compareButton = new CompareButton();
+        main.appendChild(compareButton.renderDOM());
             // const candidates = await getTopTwentyCandidates();
             // candidateList.update({ candidates });
         }
@@ -57,12 +65,10 @@ class MainApp extends Component {
             console.log('Load candidates failed\n', err);
         }
         finally {
-            setTimeout(() => {
+            // setTimeout(() => {
                 loading.update({ loading: false });
-            }, 500);
+            // }, 500);
         }
-        const compareButton = new CompareButton();
-        main.appendChild(compareButton.renderDOM());
         
     }
 
