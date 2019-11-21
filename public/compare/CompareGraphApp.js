@@ -83,6 +83,7 @@ export class GraphApp extends Component {
     renderHTML(){
         const dom = /*html*/ `
     <div>
+        <p></p>
         <form class="filter-candidates">
                 <select class="select-candidate" id = 'add'>
                 <option>Add a Candidate</option>                 

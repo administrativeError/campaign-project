@@ -1,6 +1,8 @@
 import { getCandidateCashData, getCandidates } from '../services/api.js';
 import { getFavorites } from '../services/api.js';
 export const loadGraph = async(year) => {
+    const removeSelect = document.getElementById('remove');
+    console.log(removeSelect.children[1]);
     const favorites = await getFavorites();
     
     console.log(favorites);
