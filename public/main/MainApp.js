@@ -33,6 +33,13 @@ class MainApp extends Component {
         const candidateList = new CandidateList({ candidates });
         main.appendChild(candidateList.renderDOM());
         
+        // const compareButtonListener = dom.querySelectorAll('#compare-button-bottom');
+        
+   
+        // compareButtonListener.addEventListener('click', () => {
+        //     window.location='../compare/compare-graph.html';
+        // });
+
         yearSelect.addEventListener('change', async(event) => {
 
             const value = event.target.value;
