@@ -3,9 +3,13 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    left: 50%;
+    left: 35%;
     top: 50%;
-    height:60px;
-    width:60px;
+    height: auto;
+    width: 30vw;
     margin:0px auto;
+}
+.loading-spinner{
+    max-width: 100%;
+    height: auto;
 }
