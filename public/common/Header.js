@@ -16,10 +16,11 @@ class Header extends Component {
     renderHTML() {
         return /*html*/ `
     <header>
-        <h1 class="title-header">Administrative Error</h1> 
+        <h1 class="title-header">Administrative<br> Error</h1> 
         <nav class="main-nav">
-            <a href="../main/main.html">Candidates</a>
-            <a href="../compare/compare-graph.html">Compare</a>
+            <a href="../main/main.html">Candidates |</a>
+            <a href="../compare/compare-graph.html">Compare |</a>
+            <a href="../about-us.html">The Team |</a>
             <a class="logout" href="../index.html">Logout</a>
         </nav>
     </header>
