@@ -18,13 +18,13 @@ class CandidateList extends Component {
         const favList = this.props.favList;
 
         candidates.results.forEach(candidate => {
-            const candidateItem = new CandidateItem({ candidate, currentFavorites });
+            const candidateItem = new CandidateItem({ candidate, candidateList: this });
             const candidateItemDOM = candidateItem.renderDOM();
 
             
             currentFavorites.find(favorite => {
                 if (candidate.candidate_id === favorite.candidate_id) {
-                    candidateItemDOM.classList.add('candidate-favorite');
+                    candidateItemDOM.classList.add('favorite-candidate');
                     return;         
                 }
             });

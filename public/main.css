@@ -18,6 +18,7 @@ nav a {
     color: #006590;
     display: inline-block;
     margin-right: 8px;
+    transition: color 0.2s ease;
 }
 
 nav a:hover {
@@ -117,6 +118,7 @@ select {
     border-radius: 25px;
     padding: 10px 20px;
     width: 100px;
+    transition: all 0.2s ease-in-out;
 }
 .signup-button{
     color: white;
@@ -125,8 +127,10 @@ select {
     border: 2px solid white;
     border-radius: 25px;
     padding: 10px 20px;
-
+    transition: all 0.2s ease-in-out;
 }
+
+
 
 .candidate-list {
     display: grid;
@@ -143,18 +147,17 @@ select {
     border-radius: 5px;
     padding: 10px 0;
     box-shadow: 0 6px 12px 0 rgba(124, 124, 124, .5);
-    transition: box-shadow 4s ease;
+    transition: all .2s ease-in-out;
 }
 
 .candidate-item:hover {
     box-shadow: inset 0px 0px 0px 3px #006590, 0 6px 12px 0 rgba(124, 124, 124, .5);
-    box-sizing: border-box;
+    transform: scale(1.05);
     cursor: pointer;
 
 }
 
-.candidate-favorite {
-    border: 8px solid red;
+.favorite-candidate {
     box-shadow: inset 0px 0px 0px 3px #006590, 0 6px 12px 0 rgba(124, 124, 124, .5);
 }
 
