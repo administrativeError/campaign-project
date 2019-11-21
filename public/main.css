@@ -8,7 +8,6 @@ body {
 
 header {
     background-image: url('./assets/vote-blue.jpg');
-    /* width: 100vw; */
     background-size: cover; 
     background-repeat: no-repeat;
     padding: 25px;
@@ -17,6 +16,12 @@ header {
 nav a {
     text-decoration: none;
     color: #006590;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+nav a:hover {
+    color: white;
 }
 
 h1 {
@@ -148,9 +153,9 @@ select {
 
 }
 
-.candidate-item:active,
-.candidate-item:focus {
-    border: 2px #006590 solid;
+.candidate-favorite {
+    border: 8px solid red;
+    box-shadow: inset 0px 0px 0px 3px #006590, 0 6px 12px 0 rgba(124, 124, 124, .5);
 }
 
 .candidate-name {
@@ -175,6 +180,13 @@ select {
 }
 
 @media screen and (min-width:500px){
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
     .filter-candidates {
         display: flex;
         justify-content: center;
@@ -184,6 +196,12 @@ select {
         margin: 10px;
     }
 
+}
+
+@media screen and (min-width:768px){
+
+    h1 {font-size: 36px;}
+    nav a {font-size: 14px; }
 }
 
 @media screen and (min-width:1024px){

@@ -14,23 +14,23 @@ class AboutUsApp extends Component {
             <ul class="candidate-list">
                 <li class="candidate-item">
                     <img class="about-photo" src="../assets/Matt.png">
-                    <p>Matt</p>
+                    <p>Matt Munch</p>
                 </li>
                 <li class="candidate-item">
                     <img class="about-photo" src="../assets/joeseph.png">
-                    <p>Joseph</p>
+                    <p>Joseph Tatum</p>
                 </li>
                 <li class="candidate-item">
                     <img class="about-photo" src="../assets/sam.jpg">
-                    <p>Sam</p>
+                    <p>Sam Sterns</p>
                 </li>
                 <li class="candidate-item">
                     <img class="about-photo" src="../assets/Alan.png">
-                    <p>Alan</p>
+                    <p>Alan Hermanns</p>
                 </li>
                 <li class="candidate-item">
                     <img class="about-photo" src="../assets/Aaron.jpg">
-                    <p>Aaron</p>
+                    <p>Aaron Mullan</p>
                 </li>
             </ul>
         </div>

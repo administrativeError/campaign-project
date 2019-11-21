@@ -5,20 +5,22 @@ class CandidateItem extends Component {
     
     onRender(li) {
         
-        const header2 = li.querySelector('h2');
-        header2.addEventListener('click', async(event) => {
-            
-            let currentFavorites = await getFavorites();
+        const el = this;
 
+        li.addEventListener('click', async(event) => {
+            
             let thisFavorite = {
-                candidate_id: event.target.id
+                candidate_id: event.currentTarget.id
             };
+            let currentFavorites = await getFavorites();
+            // console.log(event.target.id);
 
             const foundMatch = currentFavorites.reduce((acc, index) => {
                 if (index.candidate_id === thisFavorite.candidate_id) {
                     acc = true;
                     return acc;
                 } else {
+                    
                     return acc;
                 }
             }, false);
@@ -26,11 +28,14 @@ class CandidateItem extends Component {
            
 
             if (foundMatch) {
-                deleteAFavorite(thisFavorite);
-                
+                await deleteAFavorite(thisFavorite);
+                // li.classList.remove('favorite-candidate');    
             } else {
-                addAFavorite(thisFavorite);
+                await addAFavorite(thisFavorite);
+                // li.classList.add('favorite-candidate'); 
             }
+            console.log(el)
+            el.update();
         });
     }
     
@@ -44,10 +49,10 @@ class CandidateItem extends Component {
         } 
 
         return /*html*/`
-        <li class='candidate-item'>
-            <h2 class="candidate-name" id='${candidate.candidate_id}'>${candidate.candidate_name.split(',')[0]}</h2>
-            <h3><span class="cash-on-hand">Cash on hand:</span><br>$${numberWithCommas(Math.ceil(candidate.cash_on_hand_end_period))}</h3>
-        </li>
+            <li class="candidate-item" id='${candidate.candidate_id}'>
+                <h2 class="candidate-name">${candidate.candidate_name.split(',')[0]}</h2>
+                <h3><span class="cash-on-hand">Cash on hand:</span><br>$${numberWithCommas(Math.ceil(candidate.cash_on_hand_end_period))}</h3>
+            </li>
         `;
     }
 }
