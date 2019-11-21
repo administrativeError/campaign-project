@@ -29,7 +29,7 @@ class AboutUsApp extends Component {
                     <p>Alan Hermanns</p>
                 </li>
                 <li class="candidate-item">
-                    <img class="about-photo" src="../assets/Aaron.jpg">
+                    <img class="about-photo" src="../assets/aaron.jpg">
                     <p>Aaron Mullan</p>
                 </li>
             </ul>

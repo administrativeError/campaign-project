@@ -76,3 +76,12 @@ h1 {
     transform: scale(1.05);
     cursor: pointer;
 }
+
+p a, p a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+p a:hover {
+    cursor: pointer;
+}

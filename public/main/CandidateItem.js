@@ -4,22 +4,14 @@ import { addAFavorite, getFavorites, deleteAFavorite } from '../services/api.js'
 class CandidateItem extends Component {
     
     onRender(li) {
+        
         this.state = false;
-        const el = this;
-        const candidateList = this.props.candidateList;
+        let numberOfFavorites = this.props.numberOfFavorites;
 
         li.addEventListener('click', async(event) => {
             li.classList.toggle('favorite-candidate');
             
-            // if (this.state === true) {
-            //     this.state === false;
-            // }
-            // if (this.state === true) {
-            //     this = !this
-            // }
-            let thisFavorite = {
-                candidate_id: event.currentTarget.id
-            };
+            let thisFavorite = { candidate_id: event.currentTarget.id };
             let currentFavorites = await getFavorites();
 
             const foundMatch = currentFavorites.reduce((acc, index) => {
@@ -35,13 +27,17 @@ class CandidateItem extends Component {
            
             if (foundMatch) {
                 await deleteAFavorite(thisFavorite);
+                this.props.onCandidateClick(-1);
                     
             } else {
                 await addAFavorite(thisFavorite);
-                 
+                this.props.onCandidateClick(1);
             }
             
+            // this.update(numberOfFavorites);
         });
+
+        
     }
     
     

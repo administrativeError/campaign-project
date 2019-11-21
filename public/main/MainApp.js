@@ -1,28 +1,33 @@
 import Component from '../Component.js';
 import CandidateList from './CandidateList.js';
-import CompareButton from '../common/CompareButton.js'
+import CompareButton from '../common/CompareButton.js';
 import Header from '../common/Header.js';
 import Footer from '../common/Footer.js';
-import { getCandidates } from '../services/api.js';
+import { getCandidates, getFavorites } from '../services/api.js';
 import Loading from '../common/Loading.js';
 
 class MainApp extends Component {
+    
     async onRender(dom) {
+        this.state.numberOfFavorites = 0;
 
+        const currentFavorites = await getFavorites();
+        this.state.numberOfFavorites = currentFavorites.length;
+        // console.log(numberOfFavorites);
         const main = dom.querySelector('main');
 
         const header = new Header();
         dom.prepend(header.renderDOM());
 
         const loading = new Loading();
-        console.log(loading.renderDOM())
+        
         dom.appendChild(loading.renderDOM());
         localStorage.setItem('YEAR', '2020');
         const yearArray = [];
         for (let i = 2020; i > 1979; i = i - 4){
             yearArray.push(i);
         }
-        console.log(yearArray);
+        
         const yearSelect = dom.querySelector('.select-year');
         yearArray.forEach(year => {
             const option = document.createElement('option');
@@ -30,11 +35,19 @@ class MainApp extends Component {
             option.value = year;
             yearSelect.appendChild(option);
         });
-        console.log(yearSelect.value);
+        
         
         const candidates = await getCandidates(yearSelect.value);
         
-        const candidateList = new CandidateList({ candidates });
+        const candidateList = new CandidateList({
+            candidates,
+            onCandidateClick: (addThisNumberToState) => {
+                this.state.numberOfFavorites = this.state.numberOfFavorites + addThisNumberToState;
+                compareButton.update({numberOfFavorites: this.state.numberOfFavorites});
+                console.log(this.state.numberOfFavorites);
+            }     
+        });
+        
         main.appendChild(candidateList.renderDOM());
         
         // const compareButtonListener = dom.querySelectorAll('#compare-button-bottom');
@@ -51,9 +64,9 @@ class MainApp extends Component {
                 localStorage.removeItem('YEAR');
                 localStorage.setItem('YEAR', value);
             } else localStorage.setItem('YEAR', value);
-            console.log(value);
+            
             const candidates = await getCandidates(value);
-            console.log(candidates);
+            
             candidateList.update({ candidates });
         });
         try {
@@ -68,7 +81,7 @@ class MainApp extends Component {
                 loading.update({ loading: false });
             }, 500);
         }
-        const compareButton = new CompareButton();
+        const compareButton = new CompareButton({numberOfFavorites: this.state.numberOfFavorites});
         main.appendChild(compareButton.renderDOM());
         
     }
