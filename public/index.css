@@ -1,13 +1,13 @@
 html {
-
+    background: url('./assets/vote.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 body {
     height: 100vh;
-    background-size: cover;
-    background-repeat: no-repeat;
+    width: 100vw;
     display: flex;
-    background: url('./assets/vote.jpg');
     justify-content: center;
     align-items: center;
     font-family: 'Merriweather Sans', sans-serif;
