@@ -8,7 +8,7 @@ body {
 
 header {
     background-image: url('./assets/vote-blue.jpg');
-    width: 100vw;
+    /* width: 100vw; */
     background-size: cover; 
     background-repeat: no-repeat;
     padding: 25px;
@@ -49,13 +49,21 @@ select {
     background-position: right .7em top 50%, 0 0;
     background-size: .65em auto, 100%;
 }
-
+.select-candidate {
+    width: 250px;
+    margin: 5px 0;
+}
 .select-year-container {
     display: flex;
     justify-content: center;
     margin: 20px 0;
 }
-
+.filter-candidates {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    
+}
 .title-header {
     padding-bottom: 5px;
 }
@@ -150,4 +158,14 @@ select {
 .cash-on-hand {
     color: #666868;
     font-weight: 500;
+}
+@media screen and (min-width:500px){
+    .filter-candidates {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+    }
+    .select-candidate {
+        margin: 10px;
+    }
 }
