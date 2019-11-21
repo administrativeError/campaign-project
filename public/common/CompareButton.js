@@ -6,7 +6,6 @@ class CompareButton extends Component {
         compareButtonListener.addEventListener('click', () => {
             window.location = '../compare/compare-graph.html';
         });
-        console.log(compareButtonListener);
     }
 
     renderHTML() {
