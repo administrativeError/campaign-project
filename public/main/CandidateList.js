@@ -22,8 +22,7 @@ class CandidateList extends Component {
 
     renderHTML() {
         return /*html*/ `
-        <ul class="candidate-list">
-        </ul>   
+        <ul class="candidate-list"></ul>   
         `;
     }
 

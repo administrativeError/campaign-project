@@ -9,7 +9,7 @@ class Loading extends Component {
         
         return /*html*/`
             <div class="loading-container">
-                <img src="">
+                <img class="loading-spinner" src="../assets/loading/quater-spin-nobackground.gif">
             </div>
         `;
     }
