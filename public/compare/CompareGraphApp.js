@@ -14,7 +14,6 @@ export class GraphApp extends Component {
         try {
 
             const year = parseInt(localStorage.getItem('YEAR'));
-            loadGraph(year);
             const header = new Header();
             const headerDOM = header.renderDOM();
             dom.prepend(headerDOM);
@@ -51,6 +50,7 @@ export class GraphApp extends Component {
                 option.value = candidate.id;
                 removeCandidateSelect.appendChild(option);
             });
+            loadGraph(year);
             
     
             addCandidateSelect.addEventListener('change', async(event) => {
@@ -83,12 +83,13 @@ export class GraphApp extends Component {
     renderHTML(){
         const dom = /*html*/ `
     <div>
+        <p></p>
         <form class="filter-candidates">
                 <select class="select-candidate" id = 'add'>
                 <option>Add a Candidate</option>                 
                 </select>
                
-                <select class="select-candidate" id = 'remove'>
+                <select class="select-candidate" id ="remove">
                 <option>Remove a Candidate</option> 
                 </select>
         </form>
