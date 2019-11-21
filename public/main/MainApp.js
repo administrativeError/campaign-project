@@ -1,16 +1,21 @@
 import Component from '../Component.js';
 import CandidateList from './CandidateList.js';
+import CompareButton from '../common/CompareButton.js'
 import Header from '../common/Header.js';
+import Footer from '../common/Footer.js';
 import { getCandidates } from '../services/api.js';
 import Loading from '../common/Loading.js';
-import CompareButton from '../common/CompareButton.js';
 
 class MainApp extends Component {
     async onRender(dom) {
+
+        const main = dom.querySelector('main');
+
         const header = new Header();
         dom.prepend(header.renderDOM());
 
         const loading = new Loading();
+        console.log(loading.renderDOM())
         dom.appendChild(loading.renderDOM());
         localStorage.setItem('YEAR', '2020');
         const yearArray = [];
@@ -29,7 +34,6 @@ class MainApp extends Component {
         
         const candidates = await getCandidates(yearSelect.value);
         
-        const main = dom.querySelector('main');
         const candidateList = new CandidateList({ candidates });
         main.appendChild(candidateList.renderDOM());
         

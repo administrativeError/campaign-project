@@ -8,7 +8,6 @@ body {
 
 header {
     background-image: url('./assets/vote-blue.jpg');
-    /* width: 100vw; */
     background-size: cover; 
     background-repeat: no-repeat;
     padding: 25px;
@@ -17,6 +16,13 @@ header {
 nav a {
     text-decoration: none;
     color: #006590;
+    display: inline-block;
+    margin-right: 8px;
+    transition: color 0.2s ease;
+}
+
+nav a:hover {
+    color: white;
 }
 
 h1 {
@@ -112,6 +118,7 @@ select {
     border-radius: 25px;
     padding: 10px 20px;
     width: 100px;
+    transition: all 0.2s ease-in-out;
 }
 .signup-button{
     color: white;
@@ -120,8 +127,10 @@ select {
     border: 2px solid white;
     border-radius: 25px;
     padding: 10px 20px;
-
+    transition: all 0.2s ease-in-out;
 }
+
+
 
 .candidate-list {
     display: grid;
@@ -138,18 +147,18 @@ select {
     border-radius: 5px;
     padding: 10px 0;
     box-shadow: 0 6px 12px 0 rgba(124, 124, 124, .5);
+    transition: all .2s ease-in-out;
 }
 
 .candidate-item:hover {
     box-shadow: inset 0px 0px 0px 3px #006590, 0 6px 12px 0 rgba(124, 124, 124, .5);
-    box-sizing: border-box;
+    transform: scale(1.05);
     cursor: pointer;
 
 }
 
-.candidate-item:active,
-.candidate-item:focus {
-    border: 2px #006590 solid;
+.favorite-candidate {
+    box-shadow: inset 0px 0px 0px 3px #006590, 0 6px 12px 0 rgba(124, 124, 124, .5);
 }
 
 .candidate-name {
@@ -161,6 +170,12 @@ select {
     font-weight: 500;
 }
 
+.about-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
 @media screen and (min-width:425px) {
     .candidate-list {
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -168,6 +183,13 @@ select {
 }
 
 @media screen and (min-width:500px){
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
     .filter-candidates {
         display: flex;
         justify-content: center;
@@ -177,6 +199,12 @@ select {
         margin: 10px;
     }
 
+}
+
+@media screen and (min-width:768px){
+
+    h1 {font-size: 36px;}
+    nav a {font-size: 14px; }
 }
 
 @media screen and (min-width:1024px){

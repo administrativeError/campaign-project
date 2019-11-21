@@ -9,23 +9,32 @@ class AboutUsApp extends Component {
         dom.prepend(headerDOM);
     }
     renderHTML(){
-        return /*html*/ `<ul>
-            <li>
-                Matt <img src="../assets/Matt.png">
-            </li>
-            <li>
-                Joseph <img src="../assets/joeseph.png">
-            </li>
-            <li>
-                Sam <img src="../assets/sam.png">
-            </li>
-            <li>
-                Alan <img src="../assets/Alan.png">
-            </li>
-            <li>
-                Aaron <img src="../assets/Aaron.png">
-            </li>
-        </ul>`;
+        return /*html*/ `
+        <div>
+            <ul class="candidate-list">
+                <li class="candidate-item">
+                    <img class="about-photo" src="../assets/Matt.png">
+                    <p>Matt Munch</p>
+                </li>
+                <li class="candidate-item">
+                    <img class="about-photo" src="../assets/joeseph.png">
+                    <p>Joseph Tatum</p>
+                </li>
+                <li class="candidate-item">
+                    <img class="about-photo" src="../assets/sam.jpg">
+                    <p>Sam Sterns</p>
+                </li>
+                <li class="candidate-item">
+                    <img class="about-photo" src="../assets/Alan.png">
+                    <p>Alan Hermanns</p>
+                </li>
+                <li class="candidate-item">
+                    <img class="about-photo" src="../assets/Aaron.jpg">
+                    <p>Aaron Mullan</p>
+                </li>
+            </ul>
+        </div>
+        `;
     }
 }
 export default AboutUsApp;
