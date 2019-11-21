@@ -23,7 +23,7 @@ class AboutUsApp extends Component {
                 Alan <img src="../assets/Alan.png">
             </li>
             <li>
-                Aaron <img src="../assets/Matt.png">
+                Aaron <img src="../assets/Aaron.png">
             </li>
         </ul>`;
     }
