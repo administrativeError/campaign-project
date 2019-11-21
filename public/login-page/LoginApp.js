@@ -20,10 +20,22 @@ class AuthApp extends Component {
         const signUpContainer = dom.querySelector('#signup-container');
         const signInContainer = dom.querySelector('#signin-container');
         const main = dom.querySelector('.main-child-container');
+        const notMember = dom.querySelector('.not-member');
+
+        signInButton.addEventListener('click', () => {
+                signInButton.style.display = 'none';
+                signUpButton.style.display = 'none';
+                notMember.style.display = 'none';
+        });
+        signUpButton.addEventListener('click', () => {
+            signUpButton.style.display = 'none';
+            signInButton.style.display = 'none';
+            notMember.style.display = 'none';
+    });
         
         const header = new Header();
         main.prepend(header.renderDOM());
-        
+
         const signUp = new SignUp({
             onSignUp: async newUser => {
                 errors.textContent = '';
@@ -80,6 +92,7 @@ class AuthApp extends Component {
                         <p class="errors"></p>
                         <section class='home-container'>
                             <button class="signin-button">Sign In</button>
+                            <p class="not-member">Not a member?</p>
                             <button class="signup-button">Sign Up</button>
                             <div style="display:none;" id="signup-container">
                             </div>

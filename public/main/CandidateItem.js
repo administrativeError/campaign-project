@@ -44,9 +44,9 @@ class CandidateItem extends Component {
         } 
 
         return /*html*/`
-        <li>
-            <h2 id='${candidate.candidate_id}'>${candidate.candidate_name.split(',')[0]}</h2>
-            <h3>$${numberWithCommas(Math.ceil(candidate.cash_on_hand_end_period))}</h3>
+        <li class='candidate-item'>
+            <h2 class="candidate-name" id='${candidate.candidate_id}'>${candidate.candidate_name.split(',')[0]}</h2>
+            <h3><span class="cash-on-hand">Cash on hand:</span><br>$${numberWithCommas(Math.ceil(candidate.cash_on_hand_end_period))}</h3>
         </li>
         `;
     }
