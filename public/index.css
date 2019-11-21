@@ -1,0 +1,70 @@
+html {
+
+}
+
+body {
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    background: url('./assets/vote.jpg');
+    justify-content: center;
+    align-items: center;
+    font-family: 'Merriweather Sans', sans-serif;
+}
+
+h1 {
+    font-family:'Barlow', sans-serif;
+    color: white;
+    text-transform: uppercase;
+}
+
+.title-header {
+    border-bottom: 1px solid #006590;
+    padding-bottom: 5px;
+    margin: 0 15px;
+}
+
+.main-container {
+    text-align: center;
+    background-color: rgba(0, 189, 234, 0.9);
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 30px 0;
+}
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.auth-form label{
+    margin-bottom: 5px;
+}
+.auth-form label input{
+    background-color: white;
+    border-radius: 2px;
+    border: 0;
+    padding: 5px;
+}
+.signin-button{
+    color: white;
+    font-family: 'Merriweather Sans';
+    background-color: #006590;
+    border: 0;
+    border-radius: 25px;
+    padding: 10px 20px;
+    width: 100px;
+}
+.signup-button{
+    color: white;
+    font-family: 'Merriweather Sans';
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 25px;
+    padding: 10px 20px;
+
+}

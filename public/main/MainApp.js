@@ -3,6 +3,7 @@ import CandidateList from './CandidateList.js';
 import Header from '../common/Header.js';
 import { getCandidates } from '../services/api.js';
 import Loading from '../common/Loading.js';
+import CompareButton from '../common/CompareButton.js';
 
 class MainApp extends Component {
     async onRender(dom) {
@@ -32,6 +33,8 @@ class MainApp extends Component {
                 loading.update({ loading: false });
             }, 500);
         }
+        const compareButton = new CompareButton();
+        main.appendChild(compareButton.renderDOM());
         
     }
 
