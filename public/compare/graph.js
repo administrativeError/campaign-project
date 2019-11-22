@@ -6,7 +6,11 @@ export const loadGraph = async(year) => {
     const realData = await getCandidateCashData(year);
     const realCandidates = await getCandidates(year);
     const mungedDataArray = realData.results.map(result => {
-        result.from = (result.size === 0) ? '$' + result.size + ' to $200': '> $' + result.size;
+        result.from = (result.size === 0) ? '$' + result.size + ' to $199': '> $' + result.size;
+        result.from = (result.size === 200) ? '$' + result.size + ' to $499': result.from;
+        result.from = (result.size === 500) ? '$' + result.size + ' to $999': result.from;
+        result.from = (result.size === 1000) ? '$' + result.size + ' to $1999': result.from;
+        result.from = (result.size === 2000) ? '$' + result.size + ' and above': result.from;
         result.id = result.candidate_id;
         result.weight = result.total;
         return result;
@@ -34,7 +38,7 @@ export const loadGraph = async(year) => {
             {
                 style: 'currency',
                 currency: 'USD',
-            });
+            }).slice(0, -3);
     });
     chart.flow().labels().format(function() {
         return this.value.toLocaleString(
@@ -42,7 +46,7 @@ export const loadGraph = async(year) => {
             {
                 style: 'currency',
                 currency: 'USD',
-            });
+            }).slice(0, -3);
     });
     chart.node().tooltip().titleFormat(function() {
         return this.value.toLocaleString(
@@ -50,7 +54,7 @@ export const loadGraph = async(year) => {
             {
                 style: 'currency',
                 currency: 'USD',
-            });
+            }).slice(0, -3);
     });
     chart.flow().tooltip().format(function() {
         return this.value.toLocaleString(
@@ -58,7 +62,7 @@ export const loadGraph = async(year) => {
             {
                 style: 'currency',
                 currency: 'USD',
-            });
+            }).slice(0, -3);
     });
     chart.node().tooltip().format(function() {
 
@@ -71,7 +75,7 @@ export const loadGraph = async(year) => {
                 {
                     style: 'currency',
                     currency: 'USD',
-                }) + '\n';
+                }).slice(0, -3) + '\n';
         }
     
         for (let i = 0; i < this.outcome.length; i++) {
@@ -80,7 +84,7 @@ export const loadGraph = async(year) => {
                 {
                     style: 'currency',
                     currency: 'USD',
-                }) + '\n';
+                }).slice(0, -3) + '\n';
         }
     
         if (this.outcome.length > 0) {
