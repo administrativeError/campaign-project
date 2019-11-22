@@ -35,6 +35,7 @@ class SignUp extends Component {
                     
 
                     <button class="signin-button">Sign Up</button>
+                    <p class="go-back-link"><a href="../index.html">Go Back</a></p>
 
             </form>
         `;
