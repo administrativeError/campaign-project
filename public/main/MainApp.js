@@ -15,13 +15,21 @@ class MainApp extends Component {
         const main = dom.querySelector('main');
         const header = new Header();
         dom.prepend(header.renderDOM());
+        let electionYear = new Date().getFullYear();
+        const getDynamicYear = () => {
+            while (electionYear % 4 !== 0) {
+                electionYear++;
+            }
+            return electionYear;
+        };
+        getDynamicYear();
         
         const loading = new Loading({ loading:true });
         dom.appendChild(loading.renderDOM());
         try {
-            localStorage.setItem('YEAR', '2020');
+            localStorage.setItem('YEAR', `${electionYear}`);
             const yearArray = [];
-            for (let i = 2020; i > 1979; i = i - 4){
+            for (let i = electionYear; i > 1979; i = i - 4){
                 yearArray.push(i);
             }
             const yearSelect = dom.querySelector('.select-year');
