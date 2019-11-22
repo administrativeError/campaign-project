@@ -131,6 +131,7 @@ select {
 }
 
 .compare-button {
+    font-size: 1.7em;
     width: auto;
 }
 

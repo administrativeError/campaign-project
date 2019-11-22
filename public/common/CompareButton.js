@@ -6,6 +6,7 @@ class CompareButton extends Component {
 
         if (this.props.numberOfFavorites === 0) {
             compareButtonListener.textContent = 'Select at least 1 Candidate';
+            compareButtonListener.disabled = true;
         } else if (this.props.numberOfFavorites === 1) {
             compareButtonListener.textContent = `View Candidate Information`;
         } else if (this.props.numberOfFavorites > 1) {
