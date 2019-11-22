@@ -73,7 +73,6 @@ const nameData = async url => {
 app.post('/api/candidate-cash', async(request, response) => {
     const year = request.body.year;
     const yearInt = parseInt(year);
-    console.log('???????????????????', year);
     const candidateNamesURL = `https://api.open.fec.gov/v1/elections/?sort_null_only=true&page=1&election_full=true&sort_nulls_last=true&sort=-total_receipts&cycle=${yearInt}&sort_hide_null=true&office=president&api_key=${apiKey}&per_page=20`;
     const candidateNames = await nameData(candidateNamesURL);
     const candidateIdArray = candidateNames.results.map(({ candidate_id }) => candidate_id);
@@ -83,7 +82,6 @@ app.post('/api/candidate-cash', async(request, response) => {
 
     response.json(actualCandidateCashData);
 
-    
 });
 
 
@@ -106,7 +104,6 @@ app.get('/api/favorites', async(req, res) => {
         });
     }
 });
-
 
 app.post('/api/favorites', async(req, res) => {
     const candidateId = req.body;
@@ -155,8 +152,6 @@ app.delete('/api/favorites', async(req, res) => {
     }  
 });
 
-
-// Start the server
 app.listen(PORT, () => {
     console.log('server running on PORT', PORT);
 });
