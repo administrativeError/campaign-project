@@ -6,7 +6,7 @@ export const loadGraph = async(year) => {
     const realData = await getCandidateCashData(year);
     const realCandidates = await getCandidates(year);
     const mungedDataArray = realData.results.map(result => {
-        result.from = '> $' + result.size;
+        result.from = (result.size === 0) ? '$' + result.size + ' to $200': '> $' + result.size;
         result.id = result.candidate_id;
         result.weight = result.total;
         return result;
