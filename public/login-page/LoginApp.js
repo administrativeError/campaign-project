@@ -23,15 +23,19 @@ class AuthApp extends Component {
         const notMember = dom.querySelector('.not-member');
 
         signInButton.addEventListener('click', () => {
-                signInButton.style.display = 'none';
-                signUpButton.style.display = 'none';
-                notMember.style.display = 'none';
+            signInButton.style.display = 'none';
+            signUpButton.style.display = 'none';
+            notMember.style.display = 'none';
+            signInContainer.style.display = 'block';
+            signUpContainer.style.display = 'none';
         });
         signUpButton.addEventListener('click', () => {
             signUpButton.style.display = 'none';
             signInButton.style.display = 'none';
             notMember.style.display = 'none';
-    });
+            signUpContainer.style.display = 'block';
+            signInContainer.style.display = 'none';
+        });
         
         const header = new Header();
         main.prepend(header.renderDOM());
@@ -70,23 +74,12 @@ class AuthApp extends Component {
             }
         });
         signInContainer.appendChild(signIn.renderDOM());
-
-        signInButton.addEventListener('click', () => {
-            signInContainer.style.display = 'block';
-            signUpContainer.style.display = 'none';
-        });
-
-        signUpButton.addEventListener('click', () => {
-            signUpContainer.style.display = 'block';
-            signInContainer.style.display = 'none';
-        });
         
     }
 
     renderHTML() {
         return /*html*/`
             <div class="main-container">
-                <!-- header goes here -->
                 <div class="main-child-container">
                     <main>
                         <p class="errors"></p>
