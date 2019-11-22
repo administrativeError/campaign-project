@@ -26,6 +26,71 @@ export const loadGraph = async(year) => {
     chart.nodeWidth('30%');
     chart.container('chart');
     const title = chart.title();
+    chart.node().labels().useHtml(true);
+    chart.node().labels().format(function() {
+        return "<span style='font-weight:bold'>" + this.name +
+      '</span><br>' + this.value.toLocaleString(
+            'en-US',
+            {
+                style: 'currency',
+                currency: 'USD',
+            });
+    });
+    chart.flow().labels().format(function() {
+        return this.value.toLocaleString(
+            'en-US',
+            {
+                style: 'currency',
+                currency: 'USD',
+            });
+    });
+    chart.node().tooltip().titleFormat(function() {
+        return this.value.toLocaleString(
+            'en-US',
+            {
+                style: 'currency',
+                currency: 'USD',
+            });
+    });
+    chart.flow().tooltip().format(function() {
+        return this.value.toLocaleString(
+            'en-US',
+            {
+                style: 'currency',
+                currency: 'USD',
+            });
+    });
+    chart.node().tooltip().format(function() {
+
+        var incomeText = '';
+        var outcomeText = '';
+    
+        for (let i = 0; i < this.income.length; i++) {
+            incomeText += this.income[i].value.toLocaleString(
+                'en-US',
+                {
+                    style: 'currency',
+                    currency: 'USD',
+                }) + '\n';
+        }
+    
+        for (let i = 0; i < this.outcome.length; i++) {
+            outcomeText += this.outcome.value.toLocaleString(
+                'en-US',
+                {
+                    style: 'currency',
+                    currency: 'USD',
+                }) + '\n';
+        }
+    
+        if (this.outcome.length > 0) {
+            incomeText = incomeText + '\n';
+        }
+    
+        return incomeText + outcomeText;
+    });
+    
+  
     title.text(`Candidate Donations by Dollar Amount In The ${year} Election Cycle`);
     title.enabled(true);
     chart.draw();
