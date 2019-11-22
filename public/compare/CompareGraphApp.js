@@ -51,7 +51,6 @@ export class GraphApp extends Component {
                 removeCandidateSelect.appendChild(option);
             });
             loadGraph(year);
-            
     
             addCandidateSelect.addEventListener('change', async(event) => {
                 const id = event.target.value;
@@ -85,13 +84,12 @@ export class GraphApp extends Component {
     <div>
         <p></p>
         <form class="filter-candidates">
-                <select class="select-candidate" id = 'add'>
+            <select class="select-candidate" id = 'add'>
                 <option>Add a Candidate</option>                 
-                </select>
-               
-                <select class="select-candidate" id ="remove">
+            </select>
+            <select class="select-candidate" id ="remove">
                 <option>Remove a Candidate</option> 
-                </select>
+            </select>
         </form>
         <section class = "graph">
             <div id="container">

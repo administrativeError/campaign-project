@@ -1,4 +1,3 @@
-
 const BASE_URL = '/api';
 
 let token = '';
@@ -31,6 +30,7 @@ async function fetchWithError(url, options) {
         throw data.error;
     }
 }
+
 export function getCandidates(year) {
     const url = `${BASE_URL}/candidates`;
     return fetchWithError(url, {
@@ -41,6 +41,7 @@ export function getCandidates(year) {
         body : JSON.stringify({ year })
     });
 }
+
 export function getCandidateCashData(year) {
     const url = `${BASE_URL}/candidate-cash`;
     return fetchWithError(url, {
@@ -100,5 +101,3 @@ export function signIn(credentials) {
         body: JSON.stringify(credentials)
     });
 }
-
-

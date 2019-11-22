@@ -12,7 +12,6 @@ class MainApp extends Component {
 
         const currentFavorites = await getFavorites();
         this.state.numberOfFavorites = currentFavorites.length;
-        // console.log(numberOfFavorites);
         const main = dom.querySelector('main');
         const header = new Header();
         dom.prepend(header.renderDOM());
@@ -33,19 +32,16 @@ class MainApp extends Component {
                 yearSelect.appendChild(option);
             });
         
-        
             const candidates = await getCandidates(yearSelect.value);
         
             const candidateList = new CandidateList({
                 candidates,
                 onCandidateClick: (addThisNumberToState) => {
                     this.state.numberOfFavorites = this.state.numberOfFavorites + addThisNumberToState;
-                    compareButton.update({numberOfFavorites: this.state.numberOfFavorites});
-                    console.log(this.state.numberOfFavorites);
+                    compareButton.update({ numberOfFavorites: this.state.numberOfFavorites });
                 }     
             });
         
-
             main.appendChild(candidateList.renderDOM());
             yearSelect.addEventListener('change', async(event) => {
 
@@ -64,13 +60,10 @@ class MainApp extends Component {
             console.log('Load candidates failed\n', err);
         }
         finally {
-            // setTimeout(() => {
             loading.update({ loading: false });
-            // }, 500);
         }
         const compareButton = new CompareButton({ numberOfFavorites: this.state.numberOfFavorites });
         main.appendChild(compareButton.renderDOM());
-        
     }
 
     renderHTML() {
@@ -80,7 +73,6 @@ class MainApp extends Component {
                 <select class="select-year"></select>
             </div>   
             <main>
-        
             </main>
         </div>
         `;

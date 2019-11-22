@@ -4,9 +4,6 @@ import { addAFavorite, getFavorites, deleteAFavorite } from '../services/api.js'
 class CandidateItem extends Component {
     
     onRender(li) {
-        
-        this.state = false;
-        let numberOfFavorites = this.props.numberOfFavorites;
 
         li.addEventListener('click', async(event) => {
             li.classList.toggle('favorite-candidate');
@@ -23,7 +20,6 @@ class CandidateItem extends Component {
                     return acc;
                 }
             }, false);
-
            
             if (foundMatch) {
                 await deleteAFavorite(thisFavorite);
@@ -33,11 +29,7 @@ class CandidateItem extends Component {
                 await addAFavorite(thisFavorite);
                 this.props.onCandidateClick(1);
             }
-            
-            // this.update(numberOfFavorites);
         });
-
-        
     }
     
     
