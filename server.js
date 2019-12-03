@@ -21,7 +21,7 @@ const authRoutes = createAuthRoutes({
             FROM users
             WHERE email = $1;
         `,
-        [email]
+            [email]
         ).then(result => result.rows[0]);
     },
     insertUser(user, hash) {
@@ -30,9 +30,9 @@ const authRoutes = createAuthRoutes({
         VALUES ($1, $2, $3)
         RETURNING id, email, display_name as "displayName";
         `,
-        [user.email, user.displayName, hash]
+            [user.email, user.displayName, hash]
         ).then(result => result.rows[0]);
-        
+
     }
 });
 
@@ -43,17 +43,21 @@ app.use(express.json()); // enable reading incoming json data
 app.use('/api/auth', authRoutes); // setup authentication routes
 app.use('/api', ensureAuth); // everything that starts with "/api" below here requires an auth token!
 
-app.post('/api/test', (req, res) => {
-    res.json({
-        message: `the user's id is ${req.userId}`
+const URL = 'https://api.open.fec.gov/v1/';
+
+const throwError = (res, err) => {
+    console.log(err);
+    res.status(500).json({
+        error: err.message || err
     });
-});
-app.post('/api/candidates', async(request, response) => {
+};
+
+app.post('/api/candidates', async (request, response) => {
     const year = request.body.year;
     const yearInt = parseInt(year);
-    
-    
-    const candidateNamesURL = `https://api.open.fec.gov/v1/elections/?sort_null_only=true&page=1&election_full=true&sort_nulls_last=true&sort=-total_receipts&cycle=${yearInt}&sort_hide_null=true&office=president&api_key=${apiKey}&per_page=20`;
+
+
+    const candidateNamesURL = `${URL}elections/?sort_null_only=true&page=1&election_full=true&sort_nulls_last=true&sort=-total_receipts&cycle=${yearInt}&sort_hide_null=true&office=president&api_key=${apiKey}&per_page=20`;
     const candidateNames = await superagent.get(candidateNamesURL);
     const actualCandidateNames = JSON.parse(candidateNames.text);
     response.json(actualCandidateNames);
@@ -69,66 +73,65 @@ const nameData = async url => {
     }
 };
 
+const makeCandidateCashUrl = (candidateIdArray, yearInt) =>
+    candidateIdArray
+        .reduce((acc, curr) => `${acc}&candidate_id=${curr}`,
+            `${URL}schedules/schedule_a/by_size/by_candidate/? per_page=100&&api_key=${apiKey}&sort_null_only=false&cycle=${yearInt}&sort_hide_null=false&sort=size&sort_nulls_last=false&election_full=true&page=1`);
 
-app.post('/api/candidate-cash', async(request, response) => {
+app.post('/api/candidate-cash', async (request, response) => {
     const year = request.body.year;
     const yearInt = parseInt(year);
-    const candidateNamesURL = `https://api.open.fec.gov/v1/elections/?sort_null_only=true&page=1&election_full=true&sort_nulls_last=true&sort=-total_receipts&cycle=${yearInt}&sort_hide_null=true&office=president&api_key=${apiKey}&per_page=20`;
+    const candidateNamesURL = `${URL}elections/?sort_null_only=true&page=1&election_full=true&sort_nulls_last=true&sort=-total_receipts&cycle=${yearInt}&sort_hide_null=true&office=president&api_key=${apiKey}&per_page=20`;
     const candidateNames = await nameData(candidateNamesURL);
     const candidateIdArray = candidateNames.results.map(({ candidate_id }) => candidate_id);
-    const candidateCashURL = `https://api.open.fec.gov/v1/schedules/schedule_a/by_size/by_candidate/?per_page=100&sort_hide_null=false&sort=size&sort_nulls_last=false&election_full=true&page=1&candidate_id=${candidateIdArray[0]}&candidate_id=${candidateIdArray[1]}&candidate_id=${candidateIdArray[2]}&candidate_id=${candidateIdArray[3]}&candidate_id=${candidateIdArray[4]}&candidate_id=${candidateIdArray[5]}&candidate_id=${candidateIdArray[6]}&candidate_id=${candidateIdArray[7]}&candidate_id=${candidateIdArray[8]}&candidate_id=${candidateIdArray[9]}&candidate_id=${candidateIdArray[10]}&candidate_id=${candidateIdArray[11]}&candidate_id=${candidateIdArray[12]}&candidate_id=${candidateIdArray[13]}&candidate_id=${candidateIdArray[14]}&candidate_id=${candidateIdArray[15]}&candidate_id=${candidateIdArray[16]}&candidate_id=${candidateIdArray[17]}&candidate_id=${candidateIdArray[18]}&candidate_id=${candidateIdArray[19]}&api_key=${apiKey}&sort_null_only=false&cycle=${yearInt}`;
+
+
+    const candidateCashURL = makeCandidateCashUrl(candidateIdArray, yearInt);
     const candidateCashData = await fetch(candidateCashURL);
     const actualCandidateCashData = await candidateCashData.json();
 
     response.json(actualCandidateCashData);
-
 });
 
 
-app.get('/api/favorites', async(req, res) => {
+app.get('/api/favorites', async (req, res) => {
     const userId = req.userId;
     try {
         const result = await client.query(`
             SELECT * from favorites
             WHERE user_id = $1;
         `,
-        [userId]
+            [userId]
         );
 
         res.json(result.rows);
     }
     catch (err) {
-        console.log(err);
-        res.status(500).json({
-            error: err.message || err
-        });
+        throwError(res, err);
     }
 });
 
-app.post('/api/favorites', async(req, res) => {
+app.post('/api/favorites', async (req, res) => {
     const candidateId = req.body;
     const userId = req.userId;
-    
+
     try {
-        const result = await client.query(`
+        const { rows: [firstRow] } = await client.query(`
             INSERT into favorites (candidate_id, user_id)
             VALUES ($1, $2)
             RETURNING *;
         `,
-        [candidateId.candidate_id, userId]
+            [candidateId.candidate_id, userId]
         );
 
-        res.json(result.rows[0]);
+        res.json(firstRow);
     }
     catch (err) {
-        console.log(err);
-        res.status(500).json({
-            error: err.message || err
-        });
-    }  
+        throwError(res, err);
+    }
 });
 
-app.delete('/api/favorites', async(req, res) => {
+app.delete('/api/favorites', async (req, res) => {
     const candidateId = req.body;
     const userId = req.userId;
 
@@ -139,17 +142,14 @@ app.delete('/api/favorites', async(req, res) => {
             DELETE from favorites
             WHERE candidate_id = $1 AND user_id = $2;
         `,
-        [candidateId.candidate_id, userId]
+            [candidateId.candidate_id, userId]
         );
 
         res.json({ success: true });
     }
     catch (err) {
-        console.log(err);
-        res.status(500).json({
-            error: err.message || err
-        });
-    }  
+        throwError(res, err);
+    }
 });
 
 app.listen(PORT, () => {

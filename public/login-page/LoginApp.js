@@ -13,7 +13,7 @@ function success(user) {
 class AuthApp extends Component {
 
     onRender(dom) {
-        
+
         const errors = dom.querySelector('.errors');
         const signInButton = dom.querySelector('.signin-button');
         const signUpButton = dom.querySelector('.signup-button');
@@ -22,21 +22,16 @@ class AuthApp extends Component {
         const main = dom.querySelector('.main-child-container');
         const notMember = dom.querySelector('.not-member');
 
-        signInButton.addEventListener('click', () => {
+        const hideStuff = () => {
             signInButton.style.display = 'none';
             signUpButton.style.display = 'none';
             notMember.style.display = 'none';
             signInContainer.style.display = 'block';
             signUpContainer.style.display = 'none';
-        });
-        signUpButton.addEventListener('click', () => {
-            signUpButton.style.display = 'none';
-            signInButton.style.display = 'none';
-            notMember.style.display = 'none';
-            signUpContainer.style.display = 'block';
-            signInContainer.style.display = 'none';
-        });
-        
+        };
+
+        [signInButton, signUpButton].forEach(el => { el.addEventListener('click', hideStuff); });
+
         const header = new Header();
         main.prepend(header.renderDOM());
 
@@ -57,7 +52,7 @@ class AuthApp extends Component {
         });
 
         signUpContainer.appendChild(signUp.renderDOM());
-        
+
         const signIn = new SignIn({
             onSignIn: async credentials => {
                 errors.textContent = '';
@@ -74,7 +69,7 @@ class AuthApp extends Component {
             }
         });
         signInContainer.appendChild(signIn.renderDOM());
-        
+
     }
 
     renderHTML() {

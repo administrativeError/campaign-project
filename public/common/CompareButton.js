@@ -12,11 +12,11 @@ class CompareButton extends Component {
         } else if (this.props.numberOfFavorites > 1) {
             compareButtonListener.textContent = `Compare ${this.props.numberOfFavorites} Candidates`;
         }
-        
+
         compareButtonListener.addEventListener('click', () => {
             window.location = '../compare/compare-graph.html';
         });
-        
+
     }
 
     renderHTML() {
