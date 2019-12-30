@@ -13,7 +13,7 @@ class AboutUsApp extends Component {
         <div>
             <ul class="candidate-list">
                 <li class="candidate-item">
-                    <a href="https://www.linkedin.com/in/matt-munch-8157a2194"><img class="about-photo" src="../assets/Matt.png"></a>
+                    <a href="https://www.linkedin.com/in/matthew-j-munch-8157a2194/"><img class="about-photo" src="../assets/Matt.png"></a>
                     <p>Matt Munch</p>
                 </li>
                 <li class="candidate-item">
@@ -29,7 +29,7 @@ class AboutUsApp extends Component {
                     <p>Alan Hermanns</p>
                 </li>
                 <li class="candidate-item">
-                    <a href="https://çwww.linkedin.com/in/aaron-mullan"><img class="about-photo" src="../assets/aaron.jpg"></a>
+                    <a href="https://www.linkedin.com/in/aaron-mullan/"><img class="about-photo" src="../assets/aaron.jpg"></a>
                     <p>Aaron Mullan</p>
                 </li>
             </ul>
