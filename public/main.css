@@ -133,6 +133,7 @@ select {
 .compare-button {
     font-size: 1.7em;
     width: auto;
+    cursor: pointer;
 }
 
 .candidate-list {
@@ -154,7 +155,7 @@ select {
 }
 
 .candidate-item:hover {
-    box-shadow: inset 0px 0px 0px 3px #006590, 0 6px 12px 0 rgba(124, 124, 124, .5);
+    background: #00BDEA;
     transform: scale(1.05);
     cursor: pointer;
 
