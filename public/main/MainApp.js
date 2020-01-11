@@ -77,7 +77,7 @@ class MainApp extends Component {
     renderHTML() {
         return /*html*/`
         <div>
-            <div class="select-year-container">
+            <div style="display:none" class="select-year-container">
                 <select class="select-year"></select>
             </div>   
             <main>

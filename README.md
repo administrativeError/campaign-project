@@ -21,7 +21,8 @@
     "node-fetch": "^2.6.0",
     "nodemon": "^2.0.0",
     "pg": "^7.12.1",
-    "superagent": "^5.1.0"
+    "superagent": "^5.1.0",
+    "chance": "^1.1.4"
   },
 
 ## API Endpoints
