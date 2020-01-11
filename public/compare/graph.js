@@ -1,46 +1,63 @@
 import { getCandidateCashData, getCandidates } from '../services/api.js';
 import { getFavorites } from '../services/api.js';
-export const loadGraph = async(year) => {
+
+const getFromText = size => ({
+    0: `$${size} to $199`,
+    200: `$${size} to $499`,
+    500: `$${size} to $999`,
+    1000: `$${size} to $1999`,
+    2000: `$${size} and above`
+})[size] || `> $${size}`;
+
+const mungeDataArray = (results) => results.map(result => {
+    result.from = getFromText(result.size);
+    result.id = result.candidate_id;
+    result.weight = result.total;
+    return result;
+});
+
+export const loadGraph = async (year) => {
     const removeSelect = document.querySelector('#remove');
-    const favorites = await getFavorites();
-    const realData = await getCandidateCashData(year);
-    const realCandidates = await getCandidates(year);
-    const mungedDataArray = realData.results.map(result => {
-        result.from = (result.size === 0) ? '$' + result.size + ' to $199': '> $' + result.size;
-        result.from = (result.size === 200) ? '$' + result.size + ' to $499': result.from;
-        result.from = (result.size === 500) ? '$' + result.size + ' to $999': result.from;
-        result.from = (result.size === 1000) ? '$' + result.size + ' to $1999': result.from;
-        result.from = (result.size === 2000) ? '$' + result.size + ' and above': result.from;
-        result.id = result.candidate_id;
-        result.weight = result.total;
-        return result;
-    });
-    
+    const [
+        favorites,
+        realData,
+        realCandidates
+    ] = await Promise.all([
+        getFavorites(),
+        getCandidateCashData(year),
+        getCandidates(year)
+    ]);
+
+    const mungedDataArray = mungeDataArray(realData);
+
+    // not quite sure realCandidates is used anywhere?
     realCandidates.results.forEach(candidate => {
         const matches = mungedDataArray.filter(match => candidate.candidate_id === match.id);
         matches.forEach(obj => obj.to = candidate.candidate_name);
     });
-  
-    let favoriteData = [];
-    favorites.forEach(fav => {
-        favoriteData.push(mungedDataArray.filter(data => fav.candidate_id === data.candidate_id));
-    });
-    let displayData = (removeSelect.children[1]) ? favoriteData.flat() : mungedDataArray;
+
+    const getMatchingCandidates = fav => mungedDataArray.filter(data => fav.candidate_id === data.candidate_id);
+
+    // seems like this is a single array inside an array?
+    const favoriteData = favorites.map(fav => getMatchingCandidates(fav));
+    let displayData = (removeSelect.children[1])
+        ? favoriteData.flat()
+        : mungedDataArray;
     const chart = anychart.sankey(displayData);
     chart.nodeWidth('30%');
     chart.container('chart');
     const title = chart.title();
     chart.node().labels().useHtml(true);
-    chart.node().labels().format(function() {
+    chart.node().labels().format(() => {
         return "<span style='font-weight:bold'>" + this.name +
-      '</span><br>' + this.value.toLocaleString(
-            'en-US',
-            {
-                style: 'currency',
-                currency: 'USD',
-            }).slice(0, -3);
+            '</span><br>' + this.value.toLocaleString(
+                'en-US',
+                {
+                    style: 'currency',
+                    currency: 'USD',
+                }).slice(0, -3);
     });
-    chart.flow().labels().format(function() {
+    chart.flow().labels().format(() => {
         return this.value.toLocaleString(
             'en-US',
             {
@@ -48,7 +65,7 @@ export const loadGraph = async(year) => {
                 currency: 'USD',
             }).slice(0, -3);
     });
-    chart.node().tooltip().titleFormat(function() {
+    chart.node().tooltip().titleFormat(() => {
         return this.value.toLocaleString(
             'en-US',
             {
@@ -56,7 +73,7 @@ export const loadGraph = async(year) => {
                 currency: 'USD',
             }).slice(0, -3);
     });
-    chart.flow().tooltip().format(function() {
+    chart.flow().tooltip().format(() => {
         return this.value.toLocaleString(
             'en-US',
             {
@@ -64,38 +81,36 @@ export const loadGraph = async(year) => {
                 currency: 'USD',
             }).slice(0, -3);
     });
-    chart.node().tooltip().format(function() {
+    chart.node().tooltip().format(() => {
 
         var incomeText = '';
         var outcomeText = '';
-    
-        for (let i = 0; i < this.income.length; i++) {
-            incomeText += this.income[i].value.toLocaleString(
+        const valToAdd = this.outcome.value.toLocaleString(
+            'en-US',
+            {
+                style: 'currency',
+                currency: 'USD',
+            }).slice(0, -3) + '\n';
+
+        this.income.forEach(item => {
+            incomeText += item.value.toLocaleString(
                 'en-US',
                 {
                     style: 'currency',
                     currency: 'USD',
                 }).slice(0, -3) + '\n';
-        }
-    
-        for (let i = 0; i < this.outcome.length; i++) {
-            outcomeText += this.outcome.value.toLocaleString(
-                'en-US',
-                {
-                    style: 'currency',
-                    currency: 'USD',
-                }).slice(0, -3) + '\n';
-        }
-    
-        if (this.outcome.length > 0) {
-            incomeText = incomeText + '\n';
-        }
-    
-        return incomeText + outcomeText;
-    });
-    
-  
-    title.text(`Candidate Donations by Dollar Amount In The ${year} Election Cycle`);
-    title.enabled(true);
-    chart.draw();
-};
+
+            outcomeText += valToAdd;
+
+            if (this.outcome.length > 0) {
+                incomeText = incomeText + '\n';
+            }
+
+            return incomeText + outcomeText;
+        });
+
+
+        title.text(`Candidate Donations by Dollar Amount In The ${year} Election Cycle`);
+        title.enabled(true);
+        chart.draw();
+    };

@@ -5,8 +5,14 @@ import Header from '../common/Header.js';
 import { getCandidates, getFavorites } from '../services/api.js';
 import Loading from '../common/Loading.js';
 
+const getDynamicYear = (electionYear) => {
+    while (electionYear % 4 !== 0) {
+        electionYear++;
+    }
+    return electionYear;
+};
 class MainApp extends Component {
-    
+
     async onRender(dom) {
         this.state.numberOfFavorites = 0;
 
@@ -16,20 +22,15 @@ class MainApp extends Component {
         const header = new Header();
         dom.prepend(header.renderDOM());
         let electionYear = new Date().getFullYear();
-        const getDynamicYear = () => {
-            while (electionYear % 4 !== 0) {
-                electionYear++;
-            }
-            return electionYear;
-        };
-        getDynamicYear();
-        
-        const loading = new Loading({ loading:true });
+
+        getDynamicYear(electionYear);
+
+        const loading = new Loading({ loading: true });
         dom.appendChild(loading.renderDOM());
         try {
             localStorage.setItem('YEAR', `${electionYear}`);
             const yearArray = [];
-            for (let i = electionYear; i > 1979; i = i - 4){
+            for (let i = electionYear; i > 1979; i = i - 4) {
                 yearArray.push(i);
             }
             const yearSelect = dom.querySelector('.select-year');
@@ -39,28 +40,29 @@ class MainApp extends Component {
                 option.value = year;
                 yearSelect.appendChild(option);
             });
-        
+
             const candidates = await getCandidates(yearSelect.value);
-        
+
             const candidateList = new CandidateList({
                 candidates,
                 onCandidateClick: (addThisNumberToState) => {
+                    // cool tracking of local state!!
                     this.state.numberOfFavorites = this.state.numberOfFavorites + addThisNumberToState;
                     compareButton.update({ numberOfFavorites: this.state.numberOfFavorites });
-                }     
+                }
             });
-        
+
             main.appendChild(candidateList.renderDOM());
-            yearSelect.addEventListener('change', async(event) => {
+            yearSelect.addEventListener('change', async (event) => {
 
                 const value = event.target.value;
-                if (localStorage.getItem('YEAR')){
-                    localStorage.removeItem('YEAR');
+                if (localStorage.getItem('YEAR')) {
+                    localStorage.removeItem('YEAR'); // seems like you could just set over instead of removing
                     localStorage.setItem('YEAR', value);
                 } else localStorage.setItem('YEAR', value);
-            
+
                 const candidates = await getCandidates(value);
-            
+
                 candidateList.update({ candidates });
             });
         }

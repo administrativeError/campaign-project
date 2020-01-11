@@ -6,7 +6,7 @@ class Loading extends Component {
         if (!loading) {
             return /*html*/`<div></div>`;
         }
-        
+
         return /*html*/`
             <div class="loading-container">
                 <img class="loading-spinner" src="../assets/loading/quater-spin-nobackground.gif">

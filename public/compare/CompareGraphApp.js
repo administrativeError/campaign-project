@@ -4,6 +4,33 @@ import { loadGraph } from './graph.js';
 import { getFavorites, getCandidates, addAFavorite, deleteAFavorite } from '../services/api.js';
 import Loading from '../common/Loading.js';
 
+const addOrRemoveListener = async (event, callback) => {
+    const id = event.target.value;
+    const thisFavorite = {
+        candidate_id: id
+    };
+    await callback(thisFavorite);
+    this.update();
+};
+
+
+const makeOption = candidate => {
+    const option = document.createElement('option');
+    option.textContent = candidate.name;
+    option.value = candidate.id;
+
+    return option;
+};
+
+
+const addOptions = (candidates, selectToAppendTo) => {
+    candidates.forEach((candidate) => {
+        const option = makeOption(candidate);
+
+        selectToAppendTo.appendChild(option);
+    });
+};
+
 
 export class GraphApp extends Component {
 
@@ -12,64 +39,43 @@ export class GraphApp extends Component {
         const loadingDOM = loading.renderDOM();
         dom.appendChild(loadingDOM);
         try {
-
             const year = parseInt(localStorage.getItem('YEAR'));
             const header = new Header();
             const headerDOM = header.renderDOM();
             dom.prepend(headerDOM);
             const favoritesIds = await getFavorites();
             const favoritesIdsObject = favoritesIds.reduce((acc, curr) => {
-                acc[curr.candidate_id] = curr.candidate_id; 
+                acc[curr.candidate_id] = curr.candidate_id;
                 return acc;
             }, {});
             const candidates = await getCandidates(year);
-            const candidateNamesAndIds = candidates.results.map(candidate =>{
-                return { name : candidate.candidate_name, id: candidate.candidate_id };
-            });
+            const candidateNamesAndIds = candidates.results
+                .map(candidate => ({
+                    name: candidate.candidate_name,
+                    id: candidate.candidate_id,
+                })
+                );
             const candidatesNotFavorites = candidateNamesAndIds.filter(candidate => {
                 return candidate.id !== favoritesIdsObject[candidate.id];
             });
-            
+
             const addCandidateSelect = document.getElementById('add');
             if (!addCandidateSelect.value) {
                 this.update();
             }
-            candidatesNotFavorites.forEach(candidate => {
-                const option = document.createElement('option');
-                option.textContent = candidate.name;
-                option.value = candidate.id;
-                addCandidateSelect.appendChild(option);
-            });
-            const candidatesAreFavorites = candidateNamesAndIds.filter(candidate => {
-                return candidate.id === favoritesIdsObject[candidate.id];
-            });
+
+            const candidatesAreFavorites = candidateNamesAndIds.filter(candidate => candidate.id === favoritesIdsObject[candidate.id]
+            );
+
             const removeCandidateSelect = document.getElementById('remove');
-            candidatesAreFavorites.forEach(candidate => {
-                const option = document.createElement('option');
-                option.textContent = candidate.name;
-                option.value = candidate.id;
-                removeCandidateSelect.appendChild(option);
-            });
+
+            addOptions(candidatesNotFavorites, addCandidateSelect);
+            addOptions(candidatesAreFavorites, removeCandidateSelect);
             loadGraph(year);
-    
-            addCandidateSelect.addEventListener('change', async(event) => {
-                const id = event.target.value;
-                const thisFavorite = {
-                    candidate_id: id
-                };
-                await addAFavorite(thisFavorite);
-                this.update();
-            });
-            removeCandidateSelect.addEventListener('change', async(event) => {
-                const id = event.target.value;
-                const thisFavorite = {
-                    candidate_id: id
-                };
-                await deleteAFavorite(thisFavorite);
-                this.update();
-            });
+            addCandidateSelect.addEventListener('change', async (event) => await addOrRemoveListener(event, addAFavorite));
+            removeCandidateSelect.addEventListener('change', async (event) => await addOrRemoveListener(event, deleteAFavorite));
         }
-        catch (err){
+        catch (err) {
             console.log(err);
         }
         finally {
@@ -79,7 +85,7 @@ export class GraphApp extends Component {
 
     }
 
-    renderHTML(){
+    renderHTML() {
         const dom = /*html*/ `
     <div>
         <p></p>
