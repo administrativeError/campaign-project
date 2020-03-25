@@ -6,11 +6,11 @@ export const loadGraph = async(year) => {
     const realData = await getCandidateCashData(year);
     const realCandidates = await getCandidates(year);
     const mungedDataArray = realData.results.map(result => {
-        result.from = (result.size === 0) ? '$' + result.size + ' to $199': '> $' + result.size;
-        result.from = (result.size === 200) ? '$' + result.size + ' to $499': result.from;
-        result.from = (result.size === 500) ? '$' + result.size + ' to $999': result.from;
-        result.from = (result.size === 1000) ? '$' + result.size + ' to $1999': result.from;
-        result.from = (result.size === 2000) ? '$' + result.size + ' and above': result.from;
+        result.from = (result.size === 0) ? '$' + result.size + ' to $199' : '> $' + result.size;
+        result.from = (result.size === 200) ? '$' + result.size + ' to $499' : result.from;
+        result.from = (result.size === 500) ? '$' + result.size + ' to $999' : result.from;
+        result.from = (result.size === 1000) ? '$' + result.size + ' to $1999' : result.from;
+        result.from = (result.size === 2000) ? '$' + result.size + ' and above' : result.from;
         result.id = result.candidate_id;
         result.weight = result.total;
         return result;
@@ -26,7 +26,7 @@ export const loadGraph = async(year) => {
         favoriteData.push(mungedDataArray.filter(data => fav.candidate_id === data.candidate_id));
     });
     let displayData = (removeSelect.children[1]) ? favoriteData.flat() : mungedDataArray;
-    const chart = anychart.sankey(displayData);
+    const chart = anychart.sankey(displayData); // eslint-disable-line
     chart.nodeWidth('30%');
     chart.container('chart');
     const title = chart.title();
